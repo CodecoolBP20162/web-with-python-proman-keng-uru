@@ -1,2 +1,3 @@
-# python-with-web-proman
-This is the second exercise in the Python with Web module, see instructions in Canvas
+# Web with Python: ProMan
+
+This is the second team project in the Web with Python module, see the instructions in Canvas
