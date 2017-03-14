@@ -15,9 +15,12 @@ def show_start_html():
     return render_template("cards_example.html")
 
 
+@app.route('/board')
+def show_board():
+    return render_template("board.html")
+
 def main():
     app.run()
-
 
 if __name__ == '__main__':
     main()

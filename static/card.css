@@ -47,6 +47,7 @@ body {
   border-radius: 10px;
   resize: none;
   max-width: 5px;
+  width: 200px !important;
 }
 .users{
   font-size: 12px;
@@ -92,4 +93,8 @@ button {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+
+input {
+  width: 200px;
 }
