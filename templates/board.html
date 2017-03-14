@@ -1,10 +1,11 @@
-{% extends "navbar.html" %}
+{% extends "layout.html" %}
 {% block head %}
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery UI Sortable - Default functionality</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{url_for('static', filename='script.js') }}"></script>
@@ -26,18 +27,33 @@
             <span id="drag8" draggable="true" ondragstart="drag(event)">Item 8</span>
             <span id="drag9" draggable="true" ondragstart="drag(event)">Item 9</span>
             <span id="drag10" draggable="true" ondragstart="drag(event)">Item 10</span>
+
+            <div class="card" id="drag13" draggable="true" ondragstart="drag(event)">
+                <header><input placeholder="To Do"></header><br>
+                    <article class="card_text">
+                        <textarea placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
+                    <div><input class="users" placeholder=" Users..."></div>
+                    </article>
+            </div>
+            <div class="card" id="drag14" draggable="true" ondragstart="drag(event)">
+                <header><input placeholder="To Do"></header><br>
+                    <article class="card_text">
+                        <textarea placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
+                    <div><input class="users" placeholder=" Users..."></div>
+                    </article>
+            </div>
         </div>
         <div id="div2" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>New</label>
+            <label>New</label><br><br>
         </div>
         <div id="div3" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>In progress</label>
+            <label>In progress</label><br><br>
         </div>
         <div id="div4" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>Review</label>
+            <label>Review</label><br><br>
         </div>
         <div id="div5" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>Done</label>
+            <label>Done</label><br><br>
         </div>
 
     </div>
