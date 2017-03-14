@@ -1,8 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "layout.html" %}
+
+{% block content %}
+ <head>
     <meta charset="UTF-8">
     <title>Kenguru</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-</head>
-</html>
+  </head>                       
+{% endblock %}
+
+
+

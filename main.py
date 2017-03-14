@@ -9,9 +9,11 @@ app.config.update(dict(
 
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+
 @app.route('/')
 def show_start_html():
-    return render_template("start.html")
+    return render_template("cards_example.html")
+
 
 @app.route('/board')
 def show_board():
