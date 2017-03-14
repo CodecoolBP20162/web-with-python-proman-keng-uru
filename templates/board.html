@@ -1,59 +1,45 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<style>
-    .arrange {
-    width: 15%;
-    height: 300px;
-    overflow: auto;
-    float: left;
-    padding: 10px;
-    border: 1px solid #aaaaaa;
-}
-    #container{
-        width: 100%;
-        height: 600px;
-        border: 1px solid white;
-
-    }
-</style>
-<script>
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}
-</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Sortable - Default functionality</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
 
-<div id="container">
-    <div id="div1" class ="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>Not yet arranged stuff</label>
-    </div>
-        <img id="drag1" src="{{ url_for('static', filename='edit.png') }}" draggable="true" ondragstart="drag(event)" width="50" height="30">
-    <div id="div2" class ="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <label>New</label>
-    </div>
-    <div id="div3" class ="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <label>In progress</label>
-    </div>
-    <div id="div4" class ="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <label>Review</label>
-    </div>
-    <div id="div5" class ="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <label>Done</label>
-    </div>
-    <br>
+    <div id=" sortable">
+        <div id="div1" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <label>Not yet arranged</label>
+            <img id="drag1" src="{{ url_for('static', filename='edit.png') }}" draggable="true" ondragstart="drag(event)"
+                 width="80" height="80">
+            <span id="drag2" draggable="true" ondragstart="drag(event)">Item 2</span>
+            <span id="drag12" draggable="true" ondragstart="drag(event)">Item 3</span>
+            <span id="drag4" draggable="true" ondragstart="drag(event)">Item 4</span>
+            <span id="drag5" draggable="true" ondragstart="drag(event)">Item 5</span>
+            <span id="drag11" draggable="true" ondragstart="drag(event)">Item 6</span>
+            <span id="drag7" draggable="true" ondragstart="drag(event)">Item 7</span>
+            <span id="drag8" draggable="true" ondragstart="drag(event)">Item 8</span>
+            <span id="drag9" draggable="true" ondragstart="drag(event)">Item 9</span>
+            <span id="drag10" draggable="true" ondragstart="drag(event)">Item 10</span>
+        </div>
+        <div id="div2" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <label>New</label>
+        </div>
+        <div id="div3" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <label>In progress</label>
+        </div>
+        <div id="div4" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <label>Review</label>
+        </div>
+        <div id="div5" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <label>Done</label>
+        </div>
 
-</div>
+    </div>
+
 </body>
 </html>
