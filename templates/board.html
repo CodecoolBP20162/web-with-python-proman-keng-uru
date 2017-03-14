@@ -1,6 +1,6 @@
-<!DOCTYPE HTML>
-<html>
-<head>
+{% extends "navbar.html" %}
+{% block head %}
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery UI Sortable - Default functionality</title>
@@ -8,8 +8,9 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{url_for('static', filename='script.js') }}"></script>
-</head>
-<body>
+
+{% endblock %}
+{% block body %}
 
     <div id=" sortable">
         <div id="div1" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -40,6 +41,4 @@
         </div>
 
     </div>
-
-</body>
-</html>
+{% endblock %}
