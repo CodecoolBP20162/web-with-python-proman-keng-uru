@@ -1,2 +1,25 @@
 {% extends "layout.html" %}
+{% block head %}
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Boards collection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{url_for('static', filename='main-storage.js') }}"></script>
+
+{% endblock %}
+{% block body %}
+<div style="padding-top: 80px">
+    <div>
+        <p><h4>Adding New Board:</h4></p>
+    </div>
+    <div id="new-board">
+        <input id="new-board-title" class="new-board-card" type="text" placeholder="Board name">
+        <button id="add-button" type="submit" class="btn btn-primary" >Add new board</button>
+    </div>
+    <div id="board-objects"></div>
+</div>
+{% endblock %}
