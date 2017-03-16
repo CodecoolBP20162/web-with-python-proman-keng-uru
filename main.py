@@ -15,7 +15,7 @@ def show_start_html():
     return render_template("start.html")
 
 
-@app.route('/board')
+@app.route('/board', methods=['GET'])
 def show_board():
     return render_template("board.html")
 
