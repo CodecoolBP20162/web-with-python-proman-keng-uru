@@ -15,29 +15,32 @@
 {% block body %}
 
     <div id=" sortable">
-        <div id="div1" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="nya" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Not yet arranged</label><br><br>
 
-            <div class="card" id="new-card">
+            <div class="card" id="new-card" draggable="true" ondragstart="drag(event)">
                 <header><input id="new-card-title" class="new-board-card" type="text" placeholder="To Do"></header><br>
                 <article class="card_text">
                 <textarea id = "new-card-description" placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
                 </article>
                 <button id="add-card" type="submit" class="btn btn-primary" >Save card</button>
             </div>
-        <div id="card_objects" draggable="true" ondragstart="drag(event)"></div>
+
+            <div id="card_objects"></div>
+
+
 
         </div>
-        <div id="div2" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="new" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>New</label><br><br>
         </div>
-        <div id="div3" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="inp" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>In progress</label><br><br>
         </div>
-        <div id="div4" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="review" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Review</label><br><br>
         </div>
-        <div id="div5" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="done" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Done</label><br><br>
         </div>
 
