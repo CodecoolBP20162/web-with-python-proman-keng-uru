@@ -12,7 +12,7 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
 @app.route('/')
 def show_start_html():
-    return render_template("cards_example.html")
+    return render_template("board.html")
 
 
 @app.route('/board')

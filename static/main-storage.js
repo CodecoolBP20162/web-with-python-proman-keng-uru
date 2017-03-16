@@ -12,9 +12,7 @@ $(document).ready(function () {
             $("#board-objects").append('<div class="floating-box"><p>' + boardName + '</p></div>');
             $("#new-board-title").val('');
             boards.push(boardName);
-            console.log(boards);
             localStorage.setItem("boards", JSON.stringify(boards));
-            console.log(localStorage.getItem("boards"));
 
         };
     });
