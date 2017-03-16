@@ -15,10 +15,10 @@
 {% block body %}
 
     <div id="board">
-        <div id="nya" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="not_yet_arranged" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Not yet arranged</label><br><br>
 
-            <div class="card" id="new-card" draggable="true" ondragstart="drag(event)">
+            <div class="card" id="new-card">
                 <header><input id="new-card-title" class="new-board-card" type="text" placeholder="To Do"></header><br>
                 <article class="card_text">
                 <textarea id = "new-card-description" placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
@@ -26,15 +26,11 @@
                 <button id="add-card" type="submit" class="btn btn-primary" >Save card</button>
             </div>
 
-            <div id="card_objects"></div>
-
-
-
         </div>
         <div id="new" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>New</label><br><br>
         </div>
-        <div id="inp" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div id="in_progress" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>In progress</label><br><br>
         </div>
         <div id="review" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
