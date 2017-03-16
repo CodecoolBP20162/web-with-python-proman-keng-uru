@@ -4,12 +4,13 @@
 
    .arrange {
     width: 20%;
-    height: 500px;
+    height: 700px;
     overflow: auto;
     float: left;
     padding: 10px;
     border: 1px solid #aaaaaa;
     margin-top: 100px;
+
     }
 
 
