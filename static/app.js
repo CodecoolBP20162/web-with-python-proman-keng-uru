@@ -9,7 +9,7 @@ const ul = document.getElementById('invitedList');
 
 
 function createLI(text) {
-  var li = document.createElement('li');
+  const li = document.createElement('li');
   li.textContent = text;
   const label = document.createElement('label');
 
@@ -43,13 +43,21 @@ ul.addEventListener('click', (e) => {
     const li = e.target.parentNode;
     const ul = li.parentNode;
     ul.removeChild(li);
-  }
+  };
+});
+
+ul.addEventListener('click', (e) => {
+  if (e.target.textContent === 'edit') {
+    window.location="/board"
+  };
 });
 
 
-$(document).ready(function () {
-    ul.appendChild(createLI("Bike"));
 
+$(document).ready(function () {
+    ul.appendChild(createLI("Go to mcdonalds ask for directions to burgerking"));
+        ul.appendChild(createLI("Walk into Sea World with a fishing pole"));
+        ul.appendChild(createLI("Sleeping"));
 
     var boards = JSON.parse(localStorage.getItem("boards")) || [];
     for (var i in boards) {
