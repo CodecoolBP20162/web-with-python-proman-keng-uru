@@ -1,11 +1,22 @@
 {% extends "layout.html" %}
 
-{% block content %}
- <head>
-    <meta charset="UTF-8">
-    <title>Kenguru</title>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </head>                       
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card block">
+                    <h3 class="card-title" id="bike">Bike</h3>
+                    <p class="card-text"> Take the bike from the service </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+     <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}
 
 
