@@ -1,4 +1,11 @@
 
+var new_cards = [];
+    var in_progress_cards = [];
+    var review_cards = [];
+    var done = [];
+
+
+
 $( function() {
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
@@ -18,3 +25,4 @@ function drop(ev) {
     console.log(ev)
     ev.target.appendChild(document.getElementById(data));
 }
+

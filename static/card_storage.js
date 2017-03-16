@@ -6,6 +6,7 @@ $(document).ready(function () {
         render_new_card(cards[i].title, cards[i].description, cardId);
         ++cardId;
     }
+
     $("#add-card").click(function () {
         //localStorage.setItem("cards", []);
         var cardName = $("#new-card-title").val();
@@ -29,5 +30,5 @@ $(document).ready(function () {
 });
 
 var render_new_card = function(cardName, cardDescription, cardId){
-     $("#card_objects").append('<div class="card-text" id="card' + cardId + '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' + '<header>' + cardName + '</header>' + '<article class="card_text">' + '<header>' + cardDescription + '</header>' + ' </article>' + '</section>' + '</p></div>');
-}
+     $("#card_objects").append('<div class="card-text" id="card' + cardId + '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' + '<header>' + cardName + ' </header>' + '<article class="card_text">' + '<header>' + cardDescription + ' </header>' + '<br><br><button id="edit">Edit card</button> </article>' + ' </section>' + '</p></div>');
+};
