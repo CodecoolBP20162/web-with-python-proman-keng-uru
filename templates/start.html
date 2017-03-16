@@ -1,23 +1,25 @@
 {% extends "layout.html" %}
+{% block head %}
 
-{% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="card">
-                <div class="card block">
-                    <h3 class="card-title" id="bike">Bike</h3>
-                    <p class="card-text"> Take the bike from the service </p>
-                </div>
-            </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Boards collection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{url_for('static', filename='main-storage.js') }}"></script>
 
-        </div>
-    </div>
-</div>
-<script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
-     <script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}
-
-
-
+{% block body %}
+<div style="padding-top: 80px">
+    <div>
+        <p><h4>Adding New Board:</h4></p>
+    </div>
+    <div id="new-board">
+        <input id="new-board-title" class="new-board-card" type="text" placeholder="Board name">
+        <button id="add-button" type="submit" class="btn btn-primary" >Add new board</button>
+    </div>
+    <div id="board-objects"></div>
+</div>
+{% endblock %}

@@ -5,14 +5,14 @@
   <title>RSVP App</title>
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='kenguru.css') }}">
 <body>
   <div class="wrapper">
     <header>
       <h1>PLAN GURU</h1>
       <form id="registrar">
-        <input type="text" name="name" placeholder="Board title">
-        <button type="submit" name="submit" value="submit">Submit</button>
+        <input type="text" id="new-board-title" name="name" placeholder="Board title">
+        <button type="submit" id="add-button" name="submit" value="submit">Submit</button>
       </form>
     </header>
 
