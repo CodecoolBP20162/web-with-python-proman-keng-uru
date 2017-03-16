@@ -9,8 +9,10 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar-static-top.css') }}">
     <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script src="{{ url_for('static', filename='board-storage.js') }}"></script>
+
     {% block head %}{%endblock%}
 </head>
 <body>
@@ -51,7 +53,7 @@
             </div>
         </div>
     </nav>
-{% block body %}{%endblock%}
+{% block body %}{% endblock %}
 </body>
 </html>
 
