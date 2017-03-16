@@ -1,8 +1,8 @@
-  #sortable { list-style-type: none; margin: 0; padding: 0; }
-  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-  #sortable li span { position: absolute; margin-left: -1.3em; }
+  .sortable { list-style-type: none; margin: 0; padding: 0; }
+  .sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  .sortable li span { position: absolute; margin-left: -1.3em; }
 
-   .arrange {
+   .status {
     width: 20%;
     height: 500px;
     overflow: auto;
@@ -38,7 +38,7 @@
         height: 45px;
     }
 
-    .floating-box 
+    .board-box
     {
         float: left;
         width: 200px;
