@@ -25,6 +25,7 @@ h1 {
 }
 h2 {
   margin-top: 0;
+  font-family: 'Courgette', cursive;
 }
 p {
   font-size: 1.1em;
@@ -55,8 +56,8 @@ ul {
 ul li {
   padding: 1em;
   background: #fff;
-  border-radius: .2em;
-  border: solid 1px rgba(88, 183, 205, .2);
+  border-radius: 1.2em;
+  border: solid 4px rgba(88, 183, 205, .2);
   border-bottom: solid 2px rgba(88, 183, 205, .2);
   position: relative;
 }
@@ -164,7 +165,7 @@ div > label {
   }
   form button {
     padding: 12px 0;
-    margin-top: .5em;
+    margin-top: .10em;
   }
   form input {
     font-size: 1em;
@@ -227,7 +228,7 @@ div > label {
   }
   ul li {
     -webkit-flex-grow: 1;
-    flex-grow: 1;
+    flex-grow: 0.2;
     -webkit-flex-basis: 47.5%;
     flex-basis: 47.5%;
     margin: 0 1.25% 1em;

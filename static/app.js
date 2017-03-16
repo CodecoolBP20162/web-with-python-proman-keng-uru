@@ -48,7 +48,6 @@ ul.addEventListener('click', (e) => {
 
 ul.addEventListener('click', (e) => {
   if (e.target.textContent === 'edit') {
-      var title = $(this).find(boards)
     window.location="/board"
   };
 });
@@ -56,8 +55,9 @@ ul.addEventListener('click', (e) => {
 
 
 $(document).ready(function () {
-    ul.appendChild(createLI("Bike"));
-
+    ul.appendChild(createLI("Go to mcdonalds ask for directions to burgerking"));
+        ul.appendChild(createLI("Walk into Sea World with a fishing pole"));
+        ul.appendChild(createLI("Sleeping"));
 
     var boards = JSON.parse(localStorage.getItem("boards")) || [];
     for (var i in boards) {
