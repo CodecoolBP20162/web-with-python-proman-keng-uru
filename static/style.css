@@ -7,8 +7,8 @@
 
    .arrange {
     width: 20%;
-    height: 700px;
     overflow: auto;
+    min-height: 700px;
     float: left;
     padding: 10px;
     border: 1px solid #aaaaaa;
