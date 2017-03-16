@@ -9,7 +9,7 @@ const ul = document.getElementById('invitedList');
 
 
 function createLI(text) {
-  var li = document.createElement('li');
+  const li = document.createElement('li');
   li.textContent = text;
   const label = document.createElement('label');
 
@@ -43,8 +43,16 @@ ul.addEventListener('click', (e) => {
     const li = e.target.parentNode;
     const ul = li.parentNode;
     ul.removeChild(li);
-  }
+  };
 });
+
+ul.addEventListener('click', (e) => {
+  if (e.target.textContent === 'edit') {
+      var title = $(this).find(boards)
+    window.location="/board"
+  };
+});
+
 
 
 $(document).ready(function () {
