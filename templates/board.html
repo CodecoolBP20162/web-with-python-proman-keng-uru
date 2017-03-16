@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="{{url_for('static', filename='script.js') }}"></script>
+    <script src="{{url_for('static', filename='card_storage.js') }}"></script>
 
 {% endblock %}
 {% block body %}
@@ -17,13 +18,15 @@
         <div id="div1" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Not yet arranged</label><br><br>
 
-            <div class="card" id="drag13" draggable="true" ondragstart="drag(event)">
-                <header><input placeholder="To Do"></header><br>
-                    <article class="card_text">
-                        <textarea placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
-                    <div><input class="users" placeholder=" Users..."></div>
-                    </article>
+            <div class="card" id="new-card">
+                <header><input id="new-card-title" class="new-board-card" type="text" placeholder="To Do"></header><br>
+                <article class="card_text">
+                <textarea id = "new-card-description" placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
+                </article>
+                <button id="add-card" type="submit" class="btn btn-primary" >Save card</button>
             </div>
+        <div id="card_objects" draggable="true" ondragstart="drag(event)"></div>
+
         </div>
         <div id="div2" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>New</label><br><br>
