@@ -1,0 +1,52 @@
+
+
+
+  #sortable { list-style-type: none; margin: 0; padding: 0; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+
+   .arrange {
+    width: 20%;
+    overflow: auto;
+    min-height: 700px;
+    float: left;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+    margin-top: 100px;
+
+    }
+
+
+    .span{
+        width:50px;
+        height: 18px;
+
+    }
+
+    label
+    {
+        border-bottom:1px solid #CCC;
+        width:100%;
+        float: left;
+        padding-bottom:3px;
+        text-align: center;
+    }
+
+    .new-board-card 
+    { 
+        border-radius: 5px; 
+        border: 0.1em solid #ccc; 
+        margin: 0px; 
+        max-width: 200px; 
+        width: 200px; 
+        height: 45px;
+    }
+
+    .floating-box 
+    {
+        float: left;
+        width: 200px;
+        height: 45px;
+        margin: 10px;
+        border: 3px solid darkblue;  
+    }

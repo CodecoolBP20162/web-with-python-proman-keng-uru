@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kenguru</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='card.css') }}"></link>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+<body>
+    <h1>basic card</h1>
+    <section class="card">
+        <header>To Do</header><br>
+        <article class="card_text">
+            <header>~ Clean the house<br>~ laundry<br>~ shopping</header>
+            <div class="users">Users: Kanga, Zsebibaba</div>
+        </article>
+    </section>
+    <br>
+    <h1>new card</h1>
+    <section class="card">
+        <header><input placeholder="To Do"></header><br>
+        <article class="card_text">
+            <center>
+                <textarea placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
+                <div><input class="users" placeholder=" Users..."></div>
+            </center>
+        </article>
+    </section>
+    <h1>"new card" card</h1>
+    <section class="card">
+            <button>
+                <img src="{{ url_for('static', filename='plus.png') }}" alt="New card">
+            </button>
+    </section>
+</body>
+
+</html>

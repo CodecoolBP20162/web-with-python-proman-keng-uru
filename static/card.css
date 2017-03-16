@@ -1,0 +1,100 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  padding: 5px;
+  font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #393939;
+}
+
+.card {
+  background-color: #E3E3E3;
+  border-radius: 15px;
+  padding: 10px;
+  width: 230px;
+  border:none;
+  transition: 0.3s;
+}
+.card>header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+
+.card_text {
+  background-color: #FFF;
+  border-bottom: 1px solid #CCC;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.card> header input{
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  border-radius:5px;
+  border: none;
+}
+
+
+.card_text> textarea{
+  border: none;
+  border-radius: 10px;
+  resize: none;
+  max-width: 5px;
+  width: 200px !important;
+}
+.users{
+  font-size: 12px;
+  color: #939393;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.users input[type="text"]{
+    min-height: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+    
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.hidden {
+  display: none;
+}
+
+
+.hiddendiv {
+  display: none;
+  white-space: pre-wrap;
+  width: 500px;
+  min-height: 50px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  padding: 5px;
+  word-wrap: break-word;
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+input {
+  width: 200px;
+}
