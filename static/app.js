@@ -16,6 +16,7 @@ function createLI(text) {
   li.appendChild(label);
   const editButton = document.createElement('button');
   editButton.textContent = 'edit';
+  editButton.id = text;
   li.appendChild(editButton);
 
   const button = document.createElement('button');
@@ -31,7 +32,7 @@ form.addEventListener('submit', (e) => {
     const li = createLI(text);
     ul.appendChild(li);
 
-    boards = JSON.parse(localStorage.getItem("boards")) || []
+    boards = JSON.parse(localStorage.getItem("boards")) || [];
     boards.push(text);
     localStorage.setItem("boards", JSON.stringify(boards));
 });
@@ -48,7 +49,7 @@ ul.addEventListener('click', (e) => {
 
 ul.addEventListener('click', (e) => {
   if (e.target.textContent === 'edit') {
-    window.location="/board"
+    window.location="/board/"+e.target.id;
   };
 });
 
@@ -62,6 +63,6 @@ $(document).ready(function () {
     var boards = JSON.parse(localStorage.getItem("boards")) || [];
     for (var i in boards) {
         var newLI = createLI(boards[i]);
-        ul.append(newLI);
+        ul.appendChild(newLI);
     }
 });

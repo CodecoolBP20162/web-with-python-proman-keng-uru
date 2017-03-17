@@ -15,8 +15,8 @@ def show_start_html():
     return render_template("start2.html")
 
 
-@app.route('/board')
-def show_board():
+@app.route('/board/<board_id>')
+def show_board(board_id):
     return render_template("board.html")
 
 
