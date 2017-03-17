@@ -42,17 +42,30 @@ function get_board_name(){
    return "cards" + split_board_name();
 }
 
-var cardId = 1;
-
 $(document).ready(function () {
     var cards = JSON.parse(localStorage.getItem(get_board_name())) || []
-
+    var cardId = 1;
     for (var i in cards) {
         render_new_card(cards[i].title, cards[i].description, cardId, cards[i].status);
         ++cardId;
     }
 
     $(".nav").append("<li><a>" + decodeURI(split_board_name()) + "</a></li>>");
+
+        $("#add-card").click(function () {
+        //localStorage.setItem("cards", []);
+        var cardName = $("#new-card-title").val();
+        var cardDescription = $("#new-card-description").val();
+
+        cards = JSON.parse(localStorage.getItem("cards")) || cards;
+        if (cardName  && !cards.includes(cardName)) {
+            $("#new-card-title").val('');
+            $("#new-card-description").val('');
+            add_new_card(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED)
+            render_new_card(cardName, cardDescription, cardId, Status.NOT_YET_ARRANGED);
+            ++cardId;
+        };
+    });
 
     $(".edit").click(function(){
         var card_name = $(this).closest(".card-text").find("header.cardname").html();
@@ -129,7 +142,6 @@ function change_card(cardId, cardTitle, cardDescription){
         if (cards[i].id === cardId){
             cards[i].title = cardTitle;
             cards[i].description = cardDescription;
-
             break;
         }
     }
