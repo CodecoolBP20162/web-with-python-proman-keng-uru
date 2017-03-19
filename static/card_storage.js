@@ -17,10 +17,16 @@ function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
     console.log(ev)
-    ev.target.appendChild(document.getElementById(data));
     card_id = parseInt(data.substring(4));
-    change_card_status(card_id, ev.target.id)
+    if(ev.target.id === "delete_card"){
+        remove_card_from_db(card_id);
+    }else{
+        change_card_status(card_id, ev.target.id)
+        ev.target.appendChild(document.getElementById(data));
+    }
 }
+
+
 
 
 var Status = {
@@ -39,7 +45,7 @@ function split_board_name(){
 }
 
 function get_board_name(){
-   return "cards" + split_board_name();
+   return "cards_of_" + split_board_name();
 }
 
 $(document).ready(function () {
@@ -80,6 +86,7 @@ $(document).ready(function () {
     });
 
     $("#add-card").click(save_new_card_handler);
+
 });
 
 var edited_card_id;
@@ -121,8 +128,18 @@ function add_new_card(cardId, cardName, cardDescription, cardStatus){
         };
     cards.push(card);
     localStorage.setItem(get_board_name(), JSON.stringify(cards));
-
 }
+
+function remove_card_from_db(card_id){
+    cards = JSON.parse(localStorage.getItem(get_board_name())) || [];
+        for (i=0; i<cards.length; i++){
+            if (cards[i] === card_id){
+                cards.splice(i, 1);
+                break;
+            }
+        }
+        localStorage.setItem("cards", JSON.stringify(boards));
+    }
 
 function change_card_status(cardId, cardStatus){
     cards = JSON.parse(localStorage.getItem(get_board_name())) || [];
