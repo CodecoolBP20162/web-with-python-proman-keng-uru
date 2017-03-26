@@ -7,7 +7,6 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    console.log(ev.target.id)
     ev.dataTransfer.setData("text", ev.target.id);
 }
 
@@ -18,16 +17,17 @@ function drop(ev) {
     if (ev.target.id === "delete_card") {
         remove_card_from_db(card_id);
         $('#' + data).remove();
+
     } else if (isValidStatus(ev.target.id)) {
-        change_card_status(card_id, ev.target.id)
+        change_card_status(card_id, ev.target.id);
         ev.target.appendChild(document.getElementById(data));
     }
 }
 
 function isValidStatus(statusId) {
     var isFound = false;
-    $.each(Status, function(key, value){
-        if (value === statusId){
+    $.each(Status, function (key, value) {
+        if (value === statusId) {
             isFound = true;
         }
     });
@@ -67,12 +67,13 @@ function getNextCardId() {
         cardId = Math.max(cardId, cards[i].id);
     }
     return cardId++;
-    }
+}
 
 function addNewcard() {
     var highestCardId = getNextCardId()+1;
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
+
     cards = JSON.parse(localStorage.getItem("cards")) || cards;
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
@@ -82,32 +83,23 @@ function addNewcard() {
     }
 }
 
+function editCard(){
+    var card_name = $(this).closest(".card-text").find("header.cardname").html();
+    var description = $(this).closest(".card-text").find("article").find("header").html();
+    $('#new-card-title').val(card_name);
+    $('#new-card-description').val(description);
+    $(this).closest(".card-text").remove();
+    edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
+
+    $("#add-card").click(save_card_handler);
+    };
+
 $(document).ready(function () {
     renderSavedCards();
     $(".nav").append("<li><a>" + decodeURI(obtainBoardnameFromHref()) + "</a></li>>");
-    $("#add-card").click(addNewcard);
     $(".edit").click(editCard);
-
+    $("#add-card").click(addNewcard);
 });
-
-
-function save_new_card_handler() {
-    var cardName = $("#new-card-title").val();
-    var cardDescription = $("#new-card-description").val();
-
-    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || cards;
-    if (cardName && !cards.includes(cardName)) {
-        $("#new-card-title").val('');
-        $("#new-card-description").val('');
-        addNewcard(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED)
-        render_new_card(cardName, cardDescription, cardId, Status.NOT_YET_ARRANGED);
-        ++cardId;
-    };
-}
-
-var render_new_card = function (cardName, cardDescription, cardId, cardStatus) {
-    $("#" + cardStatus).append('<div class="card-text" id="card' + cardId + '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' + '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' + '<header>' + cardDescription + ' </header>' + '<br><br><button class="edit">Edit card</button> </article>' + ' </section>' + '</p></div>');
-};
 
 function remove_card_from_db(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
@@ -119,7 +111,6 @@ function remove_card_from_db(card_id) {
     }
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 }
-
 
 function change_card_status(cardId, cardStatus) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
@@ -133,16 +124,12 @@ function change_card_status(cardId, cardStatus) {
 
 }
 
-function change_card(cardId, cardTitle, cardDescription) {
-    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
-    for (i = 0; i < cards.length; i++) {
-        if (cards[i].id === cardId) {
-            cards[i].title = cardTitle;
-            cards[i].description = cardDescription;
-            break;
-        }
-    }
-    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+function render_new_card (cardName, cardDescription, cardId, cardStatus) {
+    $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
+        '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
+        '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' +
+        '<header>' + cardDescription + ' </header>' + '<br><br><button class="edit">Edit card</button> </article>'
+        + ' </section>' + '</p></div>');
 }
 
 
@@ -157,3 +144,46 @@ function addCardToDb(cardId, cardName, cardDescription, cardStatus) {
     cards.push(card);
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 }
+
+function change_card(cardId, cardTitle, cardDescription) {
+    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+    for (i = 0; i < cards.length; i++) {
+        if (cards[i].id === cardId) {
+            cards[i].title = cardTitle;
+            cards[i].description = cardDescription;
+            break;
+        }
+    }
+    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+
+}
+
+var edited_card_id;
+
+function save_card_handler() {
+    var cardName = $("#new-card-title").val();
+    var cardDescription = $("#new-card-description").val();
+    change_card(edited_card_id, cardName, cardDescription)
+
+    $("#add-card").click(save_new_card_handler);
+}
+
+function save_new_card_handler() {
+    var cardName = $("#new-card-title").val();
+    var cardDescription = $("#new-card-description").val();
+
+    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || cards;
+    if (cardName && !cards.includes(cardName)) {
+        $("#new-card-title").val('');
+        $("#new-card-description").val('');
+        addCardToDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED)
+        render_new_card(cardName, cardDescription, cardId, Status.NOT_YET_ARRANGED);
+        ++cardId;
+    }
+};
+
+
+function make_card_editable(ev) {
+    editable_card_id = ev.target.id;
+    card_id = parseInt(editable_card_id.substring(4));
+};
