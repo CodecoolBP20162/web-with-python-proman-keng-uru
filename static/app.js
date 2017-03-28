@@ -37,7 +37,18 @@ form.addEventListener('submit', (e) => {
 
     boards = JSON.parse(localStorage.getItem("boards")) || [];
     boards.push(text);
+    let boardIdx = boards.indexOf(text);
     localStorage.setItem("boards", JSON.stringify(boards));
+
+
+    saveNewBoardToDB = function (text, boardIdx) {
+        newBoard = { board_title : text, board_id : boardIdx};
+        let url = "http://127.0.0.1:5000/boards/" + boardIdx;
+	    $.post(url, JSON.stringify(newBoard), function (data) {
+            console.log(data);
+        });
+	};
+    saveNewBoardToDB(text, boardIdx);
 });
 
 
