@@ -12,8 +12,10 @@
   box-sizing: border-box;
 }
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: BoardTitle;
   background-image: url("Chalkboard.jpg");
+  color: black;
+  font-size: 17px
 }
 
 h1,
@@ -63,15 +65,20 @@ ul {
   margin: 2em 0 1em;
 }
 ul li {
-  padding: 1em;
-  background-image: url(Corkboard.png);
+  padding: 1.5em;
+  background-image: /*url(bookmark.png),*/ url(Corkboard.png);
   background-repeat:no-repeat;
-  background-position:center;
-  background-size: 100% 140px;
+  background-position:0% 8%,center;
+  background-size: /*95% 60px,*/ 100% 100%;
   border-radius: 0.3em;
   /*border: solid 4px rgba(88, 183, 205, .2);
   border-bottom: solid 2px rgba(88, 183, 205, .2);*/
   position: relative;
+  max-width: 20em;
+  /*padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-top: 24px;*/
 }
 button {
   cursor: pointer;
@@ -117,14 +124,42 @@ li input[type=text]:first-child {
   display: block;
 }
 li button {
-  font-size: .78em;
+  font-size: .9em;
   margin-top: 1.65em;
-  margin-right: .4em;
   border-radius: .3em;
   padding: .4em .6em;
-  color: white;
-  background: #111111;
 }
+  
+button.remove {
+  float:right;
+  margin-top: 20px;
+}
+
+.remove:after {
+  background:url("delete.png")no-repeat 0 0;
+  display: inline-block;
+  content: "";
+  background-size: 100%;
+  width: 2em;
+  height: 2em;
+  
+}
+
+button.edit {
+  float:left;
+  margin-top: 20px;
+}
+
+.edit:after {
+  background:url("edit.png")no-repeat 0 0;
+  display: inline-block;
+  content: "";
+  background-size: 100%;
+  width: 2em;
+  height: 2em;
+}
+
+
 li button:last-child {
   background: rgba(88, 183, 205, .5);
 }
@@ -133,7 +168,6 @@ li button:last-child {
   max-width: 900px;
   margin: 2.5em auto;
   border-radius: .35em;
-  background: #fcfcfc;
   overflow: hidden;
   box-shadow: 0 0 26px rgba(0,0,0, .13);
 }
