@@ -41,14 +41,14 @@ form.addEventListener('submit', (e) => {
     localStorage.setItem("boards", JSON.stringify(boards));
 
 
-    saveLabel = function (text, boardIdx) {
-        label = { board_title : text, board_id : boardIdx};
-        let url = "http://127.0.0.1:5000/cards/" + boardIdx;
-	    $.post(url, JSON.stringify(label), function (data) {
+    saveNewBoardToDB = function (text, boardIdx) {
+        newBoard = { board_title : text, board_id : boardIdx};
+        let url = "http://127.0.0.1:5000/boards/" + boardIdx;
+	    $.post(url, JSON.stringify(newBoard), function (data) {
             console.log(data);
         });
 	};
-    saveLabel(text, boardIdx);
+    saveNewBoardToDB(text, boardIdx);
 });
 
 

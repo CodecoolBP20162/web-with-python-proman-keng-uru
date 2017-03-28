@@ -25,8 +25,8 @@ def show_board(board_id):
     return render_template("board.html")
 
 
-@app.route('/cards/<id>', methods=['POST'])
-def save_card(id):
+@app.route('/boards/<id>', methods=['POST'])
+def board_to_db(id):
     print(id)
     json_obj = request.get_json(force=True)
     new_board = Board(board_title=json_obj["board_title"],
