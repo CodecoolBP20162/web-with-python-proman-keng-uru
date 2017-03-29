@@ -67,9 +67,10 @@ def delete_card():
 @app.route('/boards/<title>', methods=['DELETE'])
 def del_board(title):
     # json_obj = request.get_json(force=True)
+    board_obj = Board.select().where(Board.board_title == title).get()
+    Cards.delete().where(Cards.board_id == board_obj.id).execute()
     Board.delete().where(Board.board_title == title).execute()
     return json.dumps({ "status" : "OK" })
-
 
 def main():
     app.run()
