@@ -1,7 +1,10 @@
 /* =================================
   Element Styles
 ==================================== */
-
+@font-face {
+  font-family: BoardTitle;
+  src: url(EraserDust.ttf)
+}
 
 * {
   box-sizing: border-box;
