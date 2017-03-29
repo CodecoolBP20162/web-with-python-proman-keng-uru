@@ -9,21 +9,19 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <body>
-  <div class="wrapper">
-    <header>
-      <h1>PLAN GURU</h1>
+  <center>
+    <h1>PLAN GURU</h1>
+  </center>
       <form id="registrar">
-        <input type="text" id="new-board-title" name="name" placeholder="Board title" data-toggle="tooltip" title="Board title">
-        <!--<button type="submit" id="add-button" name="submit" value="submit">Submit</button>-->
+        <h2>create a new board    </h2><input type="text" id="new-board-title" name="name" placeholder="Board title" data-toggle="tooltip" title="Board title">
+        <button type="submit" id="add-button" name="submit" value="submit">Submit</button>
       </form>
-    </header>
+  <div class="main">
+    <center>
+    <h2>your boards</h2>
+    </center>
+    <ul id="boards"></ul>
 
-    <div class="main">
-      <h2>Order of the day</h2>
-      <ul id="boards">
-      </ul>
-
-    </div>
   </div>
 
    <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>

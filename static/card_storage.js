@@ -15,11 +15,13 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     var card_id = parseInt(data.substring(4));
     if (ev.target.id === "delete_card") {
-        remove_card_from_db(card_id);
+        removeCardFromLocalDb(card_id);
+        removeCardFromRemoteDb(card_id);
         $('#' + data).remove();
 
     } else if (isValidStatus(ev.target.id)) {
-        change_card_status(card_id, ev.target.id);
+        changeCardStatusInLocalDb(card_id, ev.target.id);
+        changeCardStatusInRemoteDb(card_id, ev.target.id);
         ev.target.appendChild(document.getElementById(data));
     }
 }
@@ -73,12 +75,15 @@ function addNewcard() {
     var highestCardId = getNextCardId()+1;
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
+    var boardName = decodeURI(obtainBoardnameFromHref());
+    console.log(boardName);
 
     cards = JSON.parse(localStorage.getItem("cards")) || cards;
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
-        addCardToDb(highestCardId, cardName, cardDescription, Status.NOT_YET_ARRANGED)
+        addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
+        addCardToRemoteDb(highestCardId, cardName, cardDescription, Status.NOT_YET_ARRANGED, boardName);
         render_new_card(cardName, cardDescription, highestCardId, Status.NOT_YET_ARRANGED);
     }
 }
@@ -96,12 +101,12 @@ function editCard(){
 
 $(document).ready(function () {
     renderSavedCards();
-    $(".nav").append("<li><a>" + decodeURI(obtainBoardnameFromHref()) + "</a></li>>");
+    $("#navbar").append("<p class='inline'>" + decodeURI(obtainBoardnameFromHref()) + "</p>");
     $(".edit").click(editCard);
     $("#add-card").click(addNewcard);
 });
 
-function remove_card_from_db(card_id) {
+function removeCardFromLocalDb(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (i = 0; i < cards.length; i++) {
         if (cards[i].id === card_id) {
@@ -112,7 +117,15 @@ function remove_card_from_db(card_id) {
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 }
 
-function change_card_status(cardId, cardStatus) {
+function removeCardFromRemoteDb(card_id) {
+    cardToDelete = { card_id : card_id };
+    var url = "http://127.0.0.1:5000/boards/delete_cards";
+    $.post(url, JSON.stringify(cardToDelete), function (data) {
+        console.log(data);
+        });
+}
+
+function changeCardStatusInLocalDb(cardId, cardStatus) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (i = 0; i < cards.length; i++) {
         if (cards[i].id === cardId) {
@@ -124,6 +137,16 @@ function change_card_status(cardId, cardStatus) {
 
 }
 
+function changeCardStatusInRemoteDb(cardId, cardStatus) {
+        newCardStatus = { card_id : cardId, card_status: cardStatus};
+        var url = "http://127.0.0.1:5000/boards/update_status";
+	    $.post(url, JSON.stringify(newCardStatus), function (data) {
+            console.log(data);
+        });
+
+}
+
+
 function render_new_card (cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
         '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
@@ -133,7 +156,7 @@ function render_new_card (cardName, cardDescription, cardId, cardStatus) {
 }
 
 
-function addCardToDb(cardId, cardName, cardDescription, cardStatus) {
+function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     var card = {
         id: cardId,
@@ -143,6 +166,14 @@ function addCardToDb(cardId, cardName, cardDescription, cardStatus) {
     };
     cards.push(card);
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+}
+
+function addCardToRemoteDb (id, title, description, status, boardName) {
+        newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
+        var url = "http://127.0.0.1:5000/boards/save_cards";
+	    $.post(url, JSON.stringify(newCard), function (data) {
+            console.log(data["board_name"]);
+        });
 }
 
 function change_card(cardId, cardTitle, cardDescription) {
@@ -176,7 +207,8 @@ function save_new_card_handler() {
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
-        addCardToDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED)
+        addCardToLocalDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
+        addCardToRemoteDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
         render_new_card(cardName, cardDescription, cardId, Status.NOT_YET_ARRANGED);
         ++cardId;
     }
