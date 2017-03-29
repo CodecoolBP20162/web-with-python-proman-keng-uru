@@ -56,6 +56,12 @@ def update_card_status():
     return json.dumps(json_obj)
 
 
+@app.route('/boards/delete_cards', methods=['POST'])
+def delete_card():
+    json_obj = request.get_json(force=True)
+    Cards.delete().where(Cards.card_id == json_obj["card_id"]).execute()
+    return json.dumps({ "status" : "OK" })
+
 def main():
     app.run()
     init_db()

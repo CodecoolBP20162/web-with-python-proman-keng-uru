@@ -15,7 +15,8 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     var card_id = parseInt(data.substring(4));
     if (ev.target.id === "delete_card") {
-        remove_card_from_db(card_id);
+        removeCardFromLocalDb(card_id);
+        removeCardFromRemoteDb(card_id);
         $('#' + data).remove();
 
     } else if (isValidStatus(ev.target.id)) {
@@ -105,7 +106,7 @@ $(document).ready(function () {
     $("#add-card").click(addNewcard);
 });
 
-function remove_card_from_db(card_id) {
+function removeCardFromLocalDb(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (i = 0; i < cards.length; i++) {
         if (cards[i].id === card_id) {
@@ -114,6 +115,14 @@ function remove_card_from_db(card_id) {
         }
     }
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+}
+
+function removeCardFromRemoteDb(card_id) {
+    cardToDelete = { card_id : card_id };
+    var url = "http://127.0.0.1:5000/boards/delete_cards";
+    $.post(url, JSON.stringify(cardToDelete), function (data) {
+        console.log(data);
+        });
 }
 
 function changeCardStatusInLocalDb(cardId, cardStatus) {
