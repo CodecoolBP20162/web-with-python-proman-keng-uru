@@ -13,9 +13,14 @@ body {
   height: 100vh;
   width: 90%;
   margin: 0 auto;
-  background: url("Cork.png");
+  background:url("Cork.png");
   background-size: 100%;
   background-repeat: no-repeat;
+}
+
+img.postit_pack {
+
+  width:23%
 }
 
 
