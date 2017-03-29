@@ -17,6 +17,9 @@ def init_db():
 
 @app.route('/')
 def show_start_html():
+    boards = Board.select().order_by(Board.id.asc())
+    for i in boards:
+        print(i.board_title)
     return render_template("start2.html")
 
 
@@ -27,7 +30,6 @@ def show_board(board_id):
 
 @app.route('/boards/<id>', methods=['POST'])
 def board_to_db(id):
-    print(id)
     json_obj = request.get_json(force=True)
     new_board = Board(board_title=json_obj["board_title"],
                       board_id=json_obj["board_id"])
@@ -61,6 +63,13 @@ def delete_card():
     json_obj = request.get_json(force=True)
     Cards.delete().where(Cards.card_id == json_obj["card_id"]).execute()
     return json.dumps({ "status" : "OK" })
+
+@app.route('/boards/<title>', methods=['DELETE'])
+def del_board(title):
+    # json_obj = request.get_json(force=True)
+    Board.delete().where(Board.board_title == title).execute()
+    return json.dumps({ "status" : "OK" })
+
 
 def main():
     app.run()
