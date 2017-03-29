@@ -74,6 +74,8 @@ ul li {
   /*border: solid 4px rgba(88, 183, 205, .2);
   border-bottom: solid 2px rgba(88, 183, 205, .2);*/
   position: relative;
+  min-height: 9em;
+  min-width: 15em;
   max-width: 20em;
   /*padding-left: 10px;
   padding-right: 10px;
