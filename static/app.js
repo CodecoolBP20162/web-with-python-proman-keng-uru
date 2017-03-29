@@ -11,12 +11,11 @@ function create_card_for_board(text) {
 
   list_item.appendChild(label);
   const editButton = document.createElement('button');
-  editButton.textContent = 'edit';
+  editButton.className = 'edit';
   editButton.id = text;
   list_item.appendChild(editButton);
 
   const removeButton = document.createElement('button');
-  removeButton.textContent = 'remove';
   removeButton.className = 'remove';
   list_item.appendChild(removeButton);
 
