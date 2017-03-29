@@ -96,7 +96,7 @@ function editCard(){
 
 $(document).ready(function () {
     renderSavedCards();
-    $(".nav").append("<li><a>" + decodeURI(obtainBoardnameFromHref()) + "</a></li>>");
+    $("#navbar").append("<p class='inline'>" + decodeURI(obtainBoardnameFromHref()) + "</p>");
     $(".edit").click(editCard);
     $("#add-card").click(addNewcard);
 });

@@ -11,8 +11,9 @@
     min-height: 700px;
     float: left;
     padding: 10px;
-    border: 1px solid #aaaaaa;
-    margin-top: 100px;
+    /*border: 1px solid #aaaaaa;
+    /*margin-top: 100px;*/
+
 
     }
 
@@ -25,11 +26,15 @@
 
     label
     {
-        border-bottom:1px solid #CCC;
         width:100%;
         float: left;
         padding-bottom:3px;
         text-align: center;
+        background: url("bookmark.png");
+        background-size: 90% 100%;
+        background-repeat: no-repeat;
+
+
     }
 
     .new-board-card 
@@ -49,4 +54,9 @@
         height: 45px;
         margin: 10px;
         border: 3px solid darkblue;  
+    }
+
+    .inline{
+        display: inline;
+        color: white;
     }

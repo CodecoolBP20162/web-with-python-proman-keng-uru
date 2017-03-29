@@ -6,30 +6,46 @@ body {
   padding: 5px;
   font: 14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
   color: #393939;
+  background: url("Chalk.jpg");
 }
 
+#board {
+  height: 100vh;
+  width: 90%;
+  margin: 0 auto;
+  background: url("Cork.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+
 .card {
-  background-color: #E3E3E3;
-  border-radius: 15px;
+  background-color: white;
+  background-size: 100%;
+  margin: 0 auto;
+  /*border-radius: 15px;*/
   padding: 10px;
-  width: 230px;
+  width: 10em;
   border:none;
   transition: 0.3s;
 }
 .card>header {
   text-align: center;
   font-weight: bold;
-  font-size: 17px;
-  line-height: 20px;
+  font-size: 1em;
+  line-height: 1.2em;
 }
 
 
 .card_text {
-  background-color: #FFF;
-  border-bottom: 1px solid #CCC;
   padding: 6px 8px;
-  border-radius: 6px;
   border: none;
+  background: transparent;
+  background: white;
+}
+
+.card-text {
+  background: white;
 }
 
 .card> header input{
@@ -37,23 +53,23 @@ body {
   font-weight: bold;
   font-size: 18px;
   line-height: 20px;
-  border-radius:5px;
+  /*border-radius:5px;*/
   border: none;
+  background: transparent;
 }
 
 
 .card_text> textarea{
   border: none;
-  border-radius: 10px;
   resize: none;
-  max-width: 5px;
-  width: 200px !important;
+  max-width: 5em;
+  width: 40%;
+  background: transparent;
 }
 .users{
   font-size: 12px;
   color: #939393;
   border: none;
-  border-radius: 5px;
   width: 100%;
 }
 
@@ -62,7 +78,7 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 15px;
-    line-height: 20px;
+    line-height: 10px;
     
 }
 
@@ -96,5 +112,23 @@ button {
 }
 
 input {
-  width: 200px;
+  width: 100px;
 }
+
+.btn-primary {
+  background: green;
+}
+
+#new-card-description {
+
+  border-radius:5px;
+  margin: 0px;
+  max-width:208px;
+  width: 8em;
+  height: 128px;
+}
+
+.card_text {
+  background: white;
+}
+
