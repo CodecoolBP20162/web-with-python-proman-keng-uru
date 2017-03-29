@@ -34,6 +34,27 @@ def board_to_db(id):
     new_board.save()
     return json.dumps(json_obj)
 
+@app.route('/boards/save_cards', methods=['POST'])
+def card_to_db():
+    json_obj = request.get_json(force=True)
+    new_card_status_id = Status.select().where(Status.name == json_obj["card_status"]).get()
+    new_card_board_id = Board.select().where(Board.board_title == json_obj["board_name"]).get()
+    new_card = Cards(card_id=json_obj["card_id"],
+                     card_title=json_obj["card_title"],
+                     card_desc = json_obj["card_description"],
+                     status = new_card_status_id,
+                     board = new_card_board_id)
+    new_card.save()
+    return json.dumps(json_obj)
+
+
+@app.route('/boards/update_status', methods=['POST'])
+def update_card_status():
+    json_obj = request.get_json(force=True)
+    new_status_of_card = Status.select().where(Status.name == json_obj["card_status"]).get()
+    Cards.update(status=new_status_of_card).where(Cards.card_id == json_obj["card_id"]).execute()
+    return json.dumps(json_obj)
+
 
 def main():
     app.run()
