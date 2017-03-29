@@ -17,10 +17,14 @@ def init_db():
 
 @app.route('/')
 def show_start_html():
-    boards = Board.select().order_by(Board.id.asc())
-    for i in boards:
-        print(i.board_title)
-    return render_template("start2.html")
+    boards_query = Board.select().order_by(Board.id.asc())
+    boards = []
+    for item in boards_query:
+        boards.append(item.board_title)
+    saved_boards_dict= {}
+    saved_boards_dict['saved_boards'] = boards
+    json_board_obj = json.dumps(saved_boards_dict)
+    return render_template("start2.html", json_board_obj=json_board_obj)
 
 
 @app.route('/board/<board_id>')

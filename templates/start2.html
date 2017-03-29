@@ -26,5 +26,10 @@
 
    <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+        var saved_board = {{ json_board_obj | tojson }};
+        var JSONObject = JSON.parse(saved_board);
+        console.log(JSONObject.saved_boards);
+    </script>
 </body>
 </html>
