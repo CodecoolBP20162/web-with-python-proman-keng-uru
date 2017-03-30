@@ -31,7 +31,7 @@ $(document).ready(function () {
     // renderSavedCardsFromLocalDb();
     renderSavedCardsFromRemoteDb(boardName);
     $(".nav").append("<li><a>" + boardName + "</a></li>>");
-    $(".edit").click(editCard);
+    $(".editcard").click(addNewcard);
     $("#add-card").click(addNewcard);
 });
 
@@ -182,13 +182,13 @@ function editCard(){
     edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
 
     $("#add-card").click(save_card_handler);
-    };
+    }
 
 function render_new_card(cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
         '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
         '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' +
-        '<header>' + cardDescription + ' </header>' + '<br><br><button class="edit">Edit card</button> </article>'
+        '<header>' + cardDescription + ' </header>' + '<br><br><button class="editcard">Edit card</button> </article>'
         + ' </section>' + '</p></div>');
 }
 
@@ -204,8 +204,6 @@ function change_card(cardId, cardTitle, cardDescription) {
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 
 }
-
-var edited_card_id;
 
 function save_card_handler() {
     var cardName = $("#new-card-title").val();
