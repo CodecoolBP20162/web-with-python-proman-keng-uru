@@ -235,3 +235,11 @@ function make_card_editable(ev) {
     editable_card_id = ev.target.id;
     card_id = parseInt(editable_card_id.substring(4));
 };
+
+
+//random color selector//
+$(document).on('click', "#new_card_button", function () {
+    var colors = ['rgb(240,91,61)', 'rgb(233,185,61)', 'rgb(225,226,90)', 'rgb(119,172,223)', 'rgb(190,74,157)', 'rgb(250,188,65)'];
+    var random_color = colors[Math.floor(Math.random() * colors.length)];
+    document.getElementById('modal_card').style.backgroundColor = random_color;
+})
