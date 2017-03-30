@@ -14,8 +14,11 @@
 </head>
 <body>
 <div id="navbar">
-<img class="inline" id="delete_card" src="{{ url_for('static', filename='kuka.png') }}" width="90px" height="70px"
-     ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block">
+<img class="inline" id="delete_card" src="{{ url_for('static', filename='kuka.png') }}" width="90px" height="80px"
+     ondrop="drop(event)" ondragover="allowDrop(event)" style="display: table-row-group">
+    <a href="{{ url_for('show_start_html') }}" id="backtohome">
+        <img class="inline" id="back" src="{{ url_for('static', filename='backtohome.png') }}" width="90px" height="80px" >
+    </a>
 </div>
 <!--
     <nav class="navbar navbar-default navbar-fixed-top">
