@@ -15,13 +15,14 @@
 {% block body %}
     <div id="board" class="corkboard" style="margin-top: 30px;">
         <div id="not_yet_arranged" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div class="card" id="new-card">
+            <button id="new-card" type="submit" class="btn-primary" data-toggle="modal" data-target="#exampleModal">New card</button>
+            <!--<div class="card" id="new-card">
                 <header><input id="new-card-title" class="new-board-card" type="text" placeholder="To Do"></header><br>
                 <article class="card_text">
                 <textarea id = "new-card-description" placeholder="What to do?"></textarea>
                 </article>
                 <button id="add-card" type="submit" class="btn btn-primary">Save card</button>
-            </div>
+            </div>-->
         </div>
         <div id="new" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>New</label><br><br>
@@ -36,4 +37,27 @@
             <label>Done</label><br><br>
         </div>
     </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <img src="{{ url_for('static', filename='pin-icon.png') }}" class="close" aria-label="Close" width="60px" height="70px">
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+          <form>
+        <h4 class="modal-title" id="exampleModalLabel"></h4>
+              <input class="newCardTitle" type="text" id="name" placeholder="Title"  name="name" >
+            <textarea type="text" style="display: none;"></textarea>
+          </form>
+      </div>
+      <div class="modal-body">
+        <form>
+            <input class="newCard" type="text" id="name" placeholder="What to do" name="name" >
+            <textarea type="text" style="display: none;"></textarea>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}

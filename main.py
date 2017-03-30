@@ -20,7 +20,7 @@ def show_start_html():
     boards = Board.select().order_by(Board.id.asc())
     for i in boards:
         print(i.board_title)
-    return render_template("start2.html")
+    return render_template("board.html")
 
 
 @app.route('/board/<board_id>')

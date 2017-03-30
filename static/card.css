@@ -82,9 +82,9 @@ body {
     
 }
 
-.card:hover {
+/*.card:hover {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
+}*/
 
 .hidden {
   display: none;
@@ -130,5 +130,29 @@ input {
 
 .card_text {
   background: white;
+}
+
+.newCard {
+  width: 40em;
+  height: 5em;
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+.newCardTitle {
+  width: 40em;
+  height: 2em;
+  background: transparent;
+  border: none;
+  text-align: center;
+}
+
+.btn-default {
+  background: url("pin-icon.png");
+}
+
+.modal-header {
+  border-bottom: none;
 }
 
