@@ -16,7 +16,7 @@
         <div id="not_yet_arranged" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div class="imagewrap">
                 <img class=" postit_pack " src="{{ url_for( 'static', filename='postit-pack-plus.png' ) }} ">
-                <button data-toggle="modal" data-target="#myModal" class="new_card "></button>
+                <button id="new_card_button" data-toggle="modal" data-target="#myModal" class="new_card "></button>
             </div>
             <!--<div class="card " id="new-card ">
         <header><input id="new-card-title " class="new-board-card " type="text " placeholder="To Do "></header><br>
@@ -43,23 +43,25 @@
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
-        <div class="modal-content">
+        <div id="modal_card" class="modal_card">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Write a new Postit</h4>
+                <center>
+                    <h4 class="modal-title">Write a new Postit</h4>
+                </center>
             </div>
-            <div class="modal-body">
-                <input id="new-card-title">Some text in the modal.</input>
-                <textarea id="new-card-description"></textarea>
-            </div>
+            <center>
+                <div><br>
+                    <input class="card_input" placeholder="Title" id="new-card-title"></input><br><br>
+                    <textarea class="card_text" placeholder="Description" id="new-card-description"></textarea>
+                </div>
+            </center>
+
             <div class="modal-footer">
                 <button id="add-card">Save</button>
-                <button type="button" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
 
