@@ -26,58 +26,14 @@ function drop(ev) {
     }
 }
 
-function isValidStatus(statusId) {
-    var isFound = false;
-    $.each(Status, function (key, value) {
-        if (value === statusId) {
-            isFound = true;
-        }
-    });
-    return isFound;
-}
-
-var Status = {
-    NOT_YET_ARRANGED: "not_yet_arranged",
-    NEW: "new",
-    IN_PROGRESS: "in_progress",
-    REVIEW: "review",
-    DONE: "done"
-};
-
-
-function obtainBoardnameFromHref() {
-    var board_split = window.location.href.split('/');
-    var board_name = board_split[board_split.length - 1];
-    return board_name;
-}
-
-function nameOfListForCardsInBoard() {
-    return "cards_of_" + obtainBoardnameFromHref();
-}
-
-function renderSavedCardsFromLocalDb() {
-    var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
-    for (var i in cards) {
-        render_new_card(cards[i].title, cards[i].description, cards[i].id, cards[i].status);
-    }
-}
-
-function renderSavedCardsFromRemoteDb(boardName) {
-    var boardName = { board_name : boardName };
-    var url = "http://127.0.0.1:5000/board/show_cards";
-    $.post(url, JSON.stringify(boardName), function (data) {
-        console.log(data);
-        });
-}
-
-function getNextCardId() {
-    var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
-    var cardId = 1;
-    for (var i in cards) {
-        cardId = Math.max(cardId, cards[i].id);
-    }
-    return cardId++;
-}
+$(document).ready(function () {
+    var boardName = decodeURI(obtainBoardnameFromHref());
+    // renderSavedCardsFromLocalDb();
+    renderSavedCardsFromRemoteDb(boardName);
+    $(".nav").append("<li><a>" + boardName + "</a></li>>");
+    $(".edit").click(editCard);
+    $("#add-card").click(addNewcard);
+});
 
 function addNewcard() {
     var highestCardId = getNextCardId()+1;
@@ -96,25 +52,48 @@ function addNewcard() {
     }
 }
 
-function editCard(){
-    var card_name = $(this).closest(".card-text").find("header.cardname").html();
-    var description = $(this).closest(".card-text").find("article").find("header").html();
-    $('#new-card-title').val(card_name);
-    $('#new-card-description').val(description);
-    $(this).closest(".card-text").remove();
-    edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
+function renderSavedCardsFromLocalDb() {
+    var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+    for (var i in cards) {
+        render_new_card(cards[i].title, cards[i].description, cards[i].id, cards[i].status);
+    }
+}
 
-    $("#add-card").click(save_card_handler);
+function renderSavedCardsFromRemoteDb(boardName) {
+    var boardName = { board_name : boardName };
+    var url = "http://127.0.0.1:5000/board/show_cards";
+    $.post(url, JSON.stringify(boardName), function (data) {
+        console.log(data);
+        var cards_data = JSON.parse(data);
+        var cards = cards_data['cards'];
+        console.log(cards);
+        for (var i=0; i<cards.length; i++) {
+            console.log(cards[i].card_title);
+            render_new_card(cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
+        }
+
+        });
+}
+
+function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
+    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+    var card = {
+        id: cardId,
+        title: cardName,
+        description: cardDescription,
+        status: cardStatus
     };
+    cards.push(card);
+    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+}
 
-$(document).ready(function () {
-    var boardName = decodeURI(obtainBoardnameFromHref());
-    renderSavedCardsFromLocalDb();
-    renderSavedCardsFromRemoteDb(boardName);
-    $(".nav").append("<li><a>" + boardName + "</a></li>>");
-    $(".edit").click(editCard);
-    $("#add-card").click(addNewcard);
-});
+function addCardToRemoteDb (id, title, description, status, boardName) {
+        newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
+        var url = "http://127.0.0.1:5000/boards/save_cards";
+	    $.post(url, JSON.stringify(newCard), function (data) {
+            console.log(data["board_name"]);
+        });
+}
 
 function removeCardFromLocalDb(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
@@ -153,8 +132,56 @@ function changeCardStatusInRemoteDb(cardId, cardStatus) {
 	    $.post(url, JSON.stringify(newCardStatus), function (data) {
             console.log(data);
         });
-
 }
+
+var Status = {
+    NOT_YET_ARRANGED: "not_yet_arranged",
+    NEW: "new",
+    IN_PROGRESS: "in_progress",
+    REVIEW: "review",
+    DONE: "done"
+};
+
+function isValidStatus(statusId) {
+    var isFound = false;
+    $.each(Status, function (key, value) {
+        if (value === statusId) {
+            isFound = true;
+        }
+    });
+    return isFound;
+}
+
+
+function obtainBoardnameFromHref() {
+    var board_split = window.location.href.split('/');
+    var board_name = board_split[board_split.length - 1];
+    return board_name;
+}
+
+function nameOfListForCardsInBoard() {
+    return "cards_of_" + obtainBoardnameFromHref();
+}
+
+function getNextCardId() {
+    var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+    var cardId = 1;
+    for (var i in cards) {
+        cardId = Math.max(cardId, cards[i].id);
+    }
+    return cardId++;
+}
+
+function editCard(){
+    var card_name = $(this).closest(".card-text").find("header.cardname").html();
+    var description = $(this).closest(".card-text").find("article").find("header").html();
+    $('#new-card-title').val(card_name);
+    $('#new-card-description').val(description);
+    $(this).closest(".card-text").remove();
+    edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
+
+    $("#add-card").click(save_card_handler);
+    };
 
 
 function render_new_card (cardName, cardDescription, cardId, cardStatus) {
@@ -165,26 +192,6 @@ function render_new_card (cardName, cardDescription, cardId, cardStatus) {
         + ' </section>' + '</p></div>');
 }
 
-
-function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
-    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
-    var card = {
-        id: cardId,
-        title: cardName,
-        description: cardDescription,
-        status: cardStatus
-    };
-    cards.push(card);
-    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
-}
-
-function addCardToRemoteDb (id, title, description, status, boardName) {
-        newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
-        var url = "http://127.0.0.1:5000/boards/save_cards";
-	    $.post(url, JSON.stringify(newCard), function (data) {
-            console.log(data["board_name"]);
-        });
-}
 
 function change_card(cardId, cardTitle, cardDescription) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
