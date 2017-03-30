@@ -35,7 +35,24 @@ $(document).ready(function () {
     $("#add-card").click(addNewcard);
 });
 
+var cardBackgroundColor = "";
+
+function getRandomColor() {
+    var colors = ['rgb(240,91,61)', 'rgb(233,185,61)', 'rgb(225,226,90)', 'rgb(119,172,223)', 'rgb(190,74,157)', 'rgb(250,188,65)'];
+    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+    return randomColor;
+}
+//random color modal//
+$(document).on('click', "#new_card_button", function () {
+    var randomColor = getRandomColor();
+    cardBackgroundColor = randomColor;
+    document.getElementById('modal_card').style.backgroundColor = randomColor;
+})
+
+
+
 function addNewcard() {
+    var backgroundColor = cardBackgroundColor;
     var highestCardId = getNextCardId() + 1;
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
@@ -48,8 +65,11 @@ function addNewcard() {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
         addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NEW);
-        addCardToRemoteDb(highestCardId, cardName, cardDescription, Status.NEW, boardName);
-        render_new_card(cardName, cardDescription, highestCardId, Status.NEW);
+        addCardToRemoteDb(backgroundColor, highestCardId, cardName, cardDescription, Status.NEW, boardName);
+        render_new_card(backgroundColor, cardName, cardDescription, highestCardId, Status.NEW);
+        //$(document).on('click', "#add-card", function (random_color) {
+        //  document.getElementById("card" + highestCardId).style.backgroundColor = randomColorDict.color;
+        //})
     }
 }
 
@@ -61,19 +81,19 @@ function renderSavedCardsFromLocalDb() {
 }
 
 function renderSavedCardsFromRemoteDb(boardName) {
-    var boardName = { board_name : boardName };
+    var boardName = { board_name: boardName };
     var url = "http://127.0.0.1:5000/board/show_cards";
     $.post(url, JSON.stringify(boardName), function (data) {
         console.log(data);
         var cards_data = JSON.parse(data);
         var cards = cards_data['cards'];
         console.log(cards);
-        for (var i=0; i<cards.length; i++) {
+        for (var i = 0; i < cards.length; i++) {
             console.log(cards[i].card_title);
-            render_new_card(cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
+            render_new_card(backgroundColor = cards[i].background, cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
         }
 
-        });
+    });
 }
 
 function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
@@ -88,12 +108,12 @@ function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 }
 
-function addCardToRemoteDb (id, title, description, status, boardName) {
-        newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
-        var url = "http://127.0.0.1:5000/boards/save_cards";
-	    $.post(url, JSON.stringify(newCard), function (data) {
-            console.log(data["board_name"]);
-        });
+function addCardToRemoteDb(backgroundColor, id, title, description, status, boardName) {
+    newCard = { card_id: id, card_title: title, card_description: description, card_status: status, board_name: boardName, background_color: backgroundColor };
+    var url = "http://127.0.0.1:5000/boards/save_cards";
+    $.post(url, JSON.stringify(newCard), function (data) {
+        console.log(data["board_name"]);
+    });
 }
 
 
@@ -129,11 +149,11 @@ function changeCardStatusInLocalDb(cardId, cardStatus) {
 }
 
 function changeCardStatusInRemoteDb(cardId, cardStatus) {
-        newCardStatus = { card_id : cardId, card_status: cardStatus};
-        var url = "http://127.0.0.1:5000/boards/update_status";
-	    $.post(url, JSON.stringify(newCardStatus), function (data) {
-            console.log(data);
-        });
+    newCardStatus = { card_id: cardId, card_status: cardStatus };
+    var url = "http://127.0.0.1:5000/boards/update_status";
+    $.post(url, JSON.stringify(newCardStatus), function (data) {
+        console.log(data);
+    });
 }
 
 var Status = {
@@ -173,7 +193,7 @@ function getNextCardId() {
     return cardId++;
 }
 
-function editCard(){
+function editCard() {
     var card_name = $(this).closest(".card-text").find("header.cardname").html();
     var description = $(this).closest(".card-text").find("article").find("header").html();
     $('#new-card-title').val(card_name);
@@ -182,11 +202,11 @@ function editCard(){
     edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
 
     $("#add-card").click(save_card_handler);
-    };
+};
 
-function render_new_card(cardName, cardDescription, cardId, cardStatus) {
+function render_new_card(backgroundColor, cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
-        '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
+        '" draggable="true" ondragstart="drag(event)")><p>' + '<section style="background-color:' + backgroundColor + '" class="card"> ' +
         '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' +
         '<header>' + cardDescription + ' </header>' + '<br><br><button class="edit">Edit card</button> </article>'
         + ' </section>' + '</p></div>');
@@ -235,11 +255,3 @@ function make_card_editable(ev) {
     editable_card_id = ev.target.id;
     card_id = parseInt(editable_card_id.substring(4));
 };
-
-
-//random color selector//
-$(document).on('click', "#new_card_button", function () {
-    var colors = ['rgb(240,91,61)', 'rgb(233,185,61)', 'rgb(225,226,90)', 'rgb(119,172,223)', 'rgb(190,74,157)', 'rgb(250,188,65)'];
-    var random_color = colors[Math.floor(Math.random() * colors.length)];
-    document.getElementById('modal_card').style.backgroundColor = random_color;
-})

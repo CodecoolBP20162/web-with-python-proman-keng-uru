@@ -78,7 +78,7 @@ deleteBoardFromDB = function (boardTitle) {
         //data: JSON.stringify({ board_title : boardTitle }),
         //contentType:'application/json',
         //dataType: 'text',
-        success: function(data) { console.log(data); }
+        success: function (data) { console.log(data); }
     });
 };
 
