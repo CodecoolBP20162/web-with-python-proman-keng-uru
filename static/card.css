@@ -1,3 +1,8 @@
+@font-face {
+  font-family: BoardTitle;
+  src: url(EraserDust.ttf);
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -41,6 +46,17 @@ img.postit_pack {
   border:none;
   transition: 0.3s;
 }
+
+.modal_card {
+  background-size: 100%;
+  margin: 0 auto;
+  /*border-radius: 15px;*/
+  padding: 10px;
+  width: 20em;
+  border:none;
+  transition: 0.3s;
+}
+
 .card>header {
   text-align: center;
   font-weight: bold;
@@ -60,7 +76,8 @@ img.postit_pack {
   background: white;
 }
 
-.card> header input{
+.card_input{
+  width: 10em;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
@@ -68,6 +85,10 @@ img.postit_pack {
   /*border-radius:5px;*/
   border: none;
   background: transparent;
+}
+
+::-webkit-input-placeholder {
+  color:black;
 }
 
 
@@ -132,12 +153,12 @@ input {
 }
 
 #new-card-description {
-
+  width: 15em;
   border-radius:5px;
   margin: 0px;
   max-width:208px;
-  width: 8em;
   height: 128px;
+  background-color: transparent;
 }
 
 .card_text {
@@ -162,3 +183,26 @@ button.new_card {
   width: 100%;
 }
 
+#pin {
+  margin-top: -19px;
+  margin-right: -17px;
+}
+
+
+img.inline {
+  transform: rotate(180deg);
+  float: right;
+}
+
+#backtohome {
+  float: left;
+}
+
+#navbar {
+  height: 70px;
+}
+
+h3.inline {
+  font-family: BoardTitle;
+  transform: rotate(180deg)
+}
