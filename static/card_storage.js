@@ -31,7 +31,6 @@ $(document).ready(function () {
     // renderSavedCardsFromLocalDb();
     renderSavedCardsFromRemoteDb(boardName);
     $(".nav").append("<li><a>" + boardName + "</a></li>>");
-    $(".editcard").click(addNewcard);
     $("#add-card").click(addNewcard);
 });
 
@@ -53,6 +52,17 @@ function addNewcard() {
     }
 }
 
+function editCard(){
+    console.log("It works");
+    var card_name = $(this).closest(".card-text").find("header.cardname").html();
+    var description = $(this).closest(".card-text").find("article").find("header").html();
+    $('#new-card-title').val(card_name);
+    $('#new-card-description').val(description);
+    $(this).closest(".card-text").remove();
+    edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
+    $("#add-card").click(save_card_handler);
+    }
+
 function renderSavedCardsFromLocalDb() {
     var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (var i in cards) {
@@ -72,7 +82,7 @@ function renderSavedCardsFromRemoteDb(boardName) {
             console.log(cards[i].card_title);
             render_new_card(cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
         }
-
+        $(".editcard button").click(editCard);
         });
 }
 
@@ -173,22 +183,12 @@ function getNextCardId() {
     return cardId++;
 }
 
-function editCard(){
-    var card_name = $(this).closest(".card-text").find("header.cardname").html();
-    var description = $(this).closest(".card-text").find("article").find("header").html();
-    $('#new-card-title').val(card_name);
-    $('#new-card-description').val(description);
-    $(this).closest(".card-text").remove();
-    edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
-
-    $("#add-card").click(save_card_handler);
-    }
 
 function render_new_card(cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
         '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
         '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' +
-        '<header>' + cardDescription + ' </header>' + '<br><br><button class="editcard">Edit card</button> </article>'
+        '<header>' + cardDescription + ' </header>' + '<br><br><div class="editcard"><button data-toggle="modal" data-target="#myModal">Edit card</button></div></article>'
         + ' </section>' + '</p></div>');
 }
 
