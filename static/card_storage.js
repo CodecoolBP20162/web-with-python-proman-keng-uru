@@ -46,9 +46,9 @@ function addNewcard() {
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
-        addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
-        addCardToRemoteDb(highestCardId, cardName, cardDescription, Status.NOT_YET_ARRANGED, boardName);
-        render_new_card(cardName, cardDescription, highestCardId, Status.NOT_YET_ARRANGED);
+        addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NEW);
+        addCardToRemoteDb(highestCardId, cardName, cardDescription, Status.NEW, boardName);
+        render_new_card(cardName, cardDescription, highestCardId, Status.NEW);
     }
 }
 
@@ -135,7 +135,6 @@ function changeCardStatusInRemoteDb(cardId, cardStatus) {
 }
 
 var Status = {
-    NOT_YET_ARRANGED: "not_yet_arranged",
     NEW: "new",
     IN_PROGRESS: "in_progress",
     REVIEW: "review",
@@ -224,9 +223,9 @@ function save_new_card_handler() {
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
-        addCardToLocalDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
-        addCardToRemoteDb(cardId, cardName, cardDescription, Status.NOT_YET_ARRANGED);
-        render_new_card(cardName, cardDescription, cardId, Status.NOT_YET_ARRANGED);
+        addCardToLocalDb(cardId, cardName, cardDescription, Status.NEW);
+        addCardToRemoteDb(cardId, cardName, cardDescription, Status.NEW);
+        render_new_card(cardName, cardDescription, cardId, Status.NEW);
         ++cardId;
     }
 };
