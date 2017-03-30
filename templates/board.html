@@ -1,29 +1,30 @@
-{% extends "layout.html" %}
-{% block head %}
+{% extends "layout.html" %} {% block head %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Sortable - Default functionality</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{{url_for('static', filename='script.js') }}"></script>
-    <script src="{{url_for('static', filename='card_storage.js') }}"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Sortable - Default functionality</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{url_for('static', filename='script.js') }}"></script>
+<script src="{{url_for('static', filename='card_storage.js') }}"></script>
 
-{% endblock %}
-{% block body %}
-
-    <div id="board">
+{% endblock %} {% block body %}
+<center>
+    <div id="board" class="corkboard" style="margin-top: 30px;">
         <div id="not_yet_arranged" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <label>Not yet arranged</label><br><br>
-            <div class="card" id="new-card">
-                <header><input id="new-card-title" class="new-board-card" type="text" placeholder="To Do"></header><br>
-                <article class="card_text">
-                <textarea id = "new-card-description" placeholder="What to do?" style="border-radius:5px; border: 0.1em solid #ccc; margin: 0px; max-width:208px; width: 208px; height: 128px;"></textarea>
-                </article>
-                <button id="add-card" type="submit" class="btn btn-primary" >Save card</button>
+            <div class="imagewrap">
+                <img class=" postit_pack " src="{{ url_for( 'static', filename='postit-pack-plus.png' ) }} ">
+                <button id="new_card_button" data-toggle="modal" data-target="#myModal" class="new_card "></button>
             </div>
+            <!--<div class="card " id="new-card ">
+        <header><input id="new-card-title " class="new-board-card " type="text " placeholder="To Do "></header><br>
+        <article class="card_text ">
+            <textarea id="new-card-description " placeholder="What to do? "></textarea>
+        </article>
+        <button id="add-card " type="submit " class="btn btn-primary ">Save card</button>
+    </div>-->
         </div>
         <div id="new" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>New</label><br><br>
@@ -37,6 +38,30 @@
         <div id="done" class="arrange" ondrop="drop(event)" ondragover="allowDrop(event)">
             <label>Done</label><br><br>
         </div>
-
     </div>
+</center>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div id="modal_card" class="modal_card">
+            <div class="modal-header">
+                <img src="{{ url_for('static', filename='pin2.png') }}" id="pin" width="20%" height="10%" class="close" data-dismiss="modal"></img>
+                <center>
+                    <h4 class="modal-title">Write a new Post-it</h4>
+                </center>
+            </div>
+            <center>
+                <div><br>
+                    <input class="card_input" placeholder="title" id="new-card-title"></input><br><br>
+                    <textarea class="card_text" placeholder="What to do" id="new-card-description"></textarea>
+                </div>
+            </center>
+            <div class="modal-footer">
+                <button id="add-card">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

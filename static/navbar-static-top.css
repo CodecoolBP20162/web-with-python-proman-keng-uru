@@ -1,5 +1,6 @@
 body {
-  min-height: 2000px;
+  min-height: 100vh;
+
 }
 
 .navbar-static-top {
@@ -8,4 +9,10 @@ body {
 
 .navbar-brand:hover {
   color: white !important;
+}
+
+#navbar {
+  font-family: 'EraserDust';
+  src: url('static/EraserDust.ttf');
+  text-align: center;
 }

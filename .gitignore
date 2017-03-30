@@ -135,3 +135,5 @@ fabric.properties
 
 # All idea files
 .idea
+
+connection_str.txt

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>KENG-uru</title>
     <meta charset="UTF-8">
@@ -10,21 +11,24 @@
     <script src="{{ url_for('static', filename='jquery-3.1.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
     {% block head %}{%endblock%}
 </head>
+
 <body>
+    <div id="navbar">
+        <img class="inline" id="delete_card" src="{{ url_for('static', filename='kuka.png') }}" width="90px" height="80px" ondrop="drop(event)"
+            ondragover="allowDrop(event)" style="display: table-row-group">
+        <a href="{{ url_for('show_start_html') }}" id="backtohome">
+            <img class="inline" id="back" src="{{ url_for('static', filename='backtohome.png') }}" width="90px" height="80px">
+        </a>
+    </div>
+    <!--
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url_for('show_start_html') }}">PLAN-GURU</a>
                 <a href="{{ url_for('show_start_html') }}" class="navbar-left"><img
@@ -37,11 +41,13 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-left">
+                    <img id="delete_card" src="{{ url_for('static', filename='delete.png')}}" width="90px" height="70px"
+                          ondrop="drop(event)" ondragover="allowDrop(event)" style="display: inline-block">
                 </ul>
             </div>
         </div>
-    </nav>
-{% block body %}{% endblock %}
+    </nav>-->
+    {% block body %}{% endblock %}
 </body>
-</html>
 
+</html>
