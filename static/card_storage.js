@@ -243,3 +243,10 @@ $(document).on('click', "#new_card_button", function () {
     var random_color = colors[Math.floor(Math.random() * colors.length)];
     document.getElementById('modal_card').style.backgroundColor = random_color;
 })
+
+
+/*
+$("#add-card").click(function(){
+$(".modal-footer").modal('hide');
+ })
+}*/

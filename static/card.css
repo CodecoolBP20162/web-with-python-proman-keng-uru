@@ -178,3 +178,7 @@ button.new_card {
   width: 100%;
 }
 
+#pin {
+  margin-top: -19px;
+  margin-right: -17px;
+}
