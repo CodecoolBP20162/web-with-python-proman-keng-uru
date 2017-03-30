@@ -36,13 +36,14 @@ $(document).ready(function () {
 });
 
 function addNewcard() {
-    var highestCardId = getNextCardId()+1;
+    var highestCardId = getNextCardId() + 1;
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
     var boardName = decodeURI(obtainBoardnameFromHref());
     console.log(boardName);
 
-    cards = JSON.parse(localStorage.getItem("cards")) || cards;
+    cards = JSON.parse(localStorage.getItem("cards")) || [];
+    console.log(cards)
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
@@ -95,6 +96,7 @@ function addCardToRemoteDb (id, title, description, status, boardName) {
         });
 }
 
+
 function removeCardFromLocalDb(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (i = 0; i < cards.length; i++) {
@@ -107,11 +109,11 @@ function removeCardFromLocalDb(card_id) {
 }
 
 function removeCardFromRemoteDb(card_id) {
-    cardToDelete = { card_id : card_id };
+    cardToDelete = { card_id: card_id };
     var url = "http://127.0.0.1:5000/boards/delete_cards";
     $.post(url, JSON.stringify(cardToDelete), function (data) {
         console.log(data);
-        });
+    });
 }
 
 function changeCardStatusInLocalDb(cardId, cardStatus) {
@@ -141,6 +143,7 @@ var Status = {
     DONE: "done"
 };
 
+
 function isValidStatus(statusId) {
     var isFound = false;
     $.each(Status, function (key, value) {
@@ -150,7 +153,6 @@ function isValidStatus(statusId) {
     });
     return isFound;
 }
-
 
 function obtainBoardnameFromHref() {
     var board_split = window.location.href.split('/');
@@ -182,15 +184,13 @@ function editCard(){
     $("#add-card").click(save_card_handler);
     };
 
-
-function render_new_card (cardName, cardDescription, cardId, cardStatus) {
+function render_new_card(cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
         '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
         '<header class="cardname">' + cardName + ' </header>' + '<article class="card_text description">' +
         '<header>' + cardDescription + ' </header>' + '<br><br><button class="edit">Edit card</button> </article>'
         + ' </section>' + '</p></div>');
 }
-
 
 function change_card(cardId, cardTitle, cardDescription) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
