@@ -46,7 +46,7 @@ function getRandomColor() {
 $(document).on('click', "#new_card_button", function () {
     var randomColor = getRandomColor();
     cardBackgroundColor = randomColor;
-    document.getElementById('modal_card').style.backgroundColor = randomColor;
+    document.getElementById('modal_card').style.backgroundColor = antiquewhite;
 })
 
 
@@ -58,6 +58,7 @@ function addNewcard() {
     var cardDescription = $("#new-card-description").val();
     var boardName = decodeURI(obtainBoardnameFromHref());
     console.log(boardName);
+    console.log(backgroundColor);
 
     cards = JSON.parse(localStorage.getItem("cards")) || [];
     console.log(cards)
@@ -65,11 +66,9 @@ function addNewcard() {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
         addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NEW);
+        console.log(backgroundColor);
         addCardToRemoteDb(backgroundColor, highestCardId, cardName, cardDescription, Status.NEW, boardName);
         render_new_card(backgroundColor, cardName, cardDescription, highestCardId, Status.NEW);
-        //$(document).on('click', "#add-card", function (random_color) {
-        //  document.getElementById("card" + highestCardId).style.backgroundColor = randomColorDict.color;
-        //})
     }
 }
 
@@ -82,12 +81,12 @@ function renderSavedCardsFromLocalDb() {
 
 function renderSavedCardsFromRemoteDb(boardName) {
     var boardName = { board_name: boardName };
-    var url = "http://127.0.0.1:5000/board/show_cards";
+    var url = "/board/show_cards";
     $.post(url, JSON.stringify(boardName), function (data) {
         console.log(data);
         var cards_data = JSON.parse(data);
         var cards = cards_data['cards'];
-        console.log(cards);
+        console.log(cards + "itt vagyunk");
         for (var i = 0; i < cards.length; i++) {
             console.log(cards[i].card_title);
             render_new_card(backgroundColor = cards[i].background, cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
@@ -110,7 +109,7 @@ function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {
 
 function addCardToRemoteDb(backgroundColor, id, title, description, status, boardName) {
     newCard = { card_id: id, card_title: title, card_description: description, card_status: status, board_name: boardName, background_color: backgroundColor };
-    var url = "http://127.0.0.1:5000/boards/save_cards";
+    var url = "/boards/save_cards";
     $.post(url, JSON.stringify(newCard), function (data) {
         console.log(data["board_name"]);
     });
@@ -130,7 +129,7 @@ function removeCardFromLocalDb(card_id) {
 
 function removeCardFromRemoteDb(card_id) {
     cardToDelete = { card_id: card_id };
-    var url = "http://127.0.0.1:5000/boards/delete_cards";
+    var url = "/boards/delete_cards";
     $.post(url, JSON.stringify(cardToDelete), function (data) {
         console.log(data);
     });
@@ -150,7 +149,7 @@ function changeCardStatusInLocalDb(cardId, cardStatus) {
 
 function changeCardStatusInRemoteDb(cardId, cardStatus) {
     newCardStatus = { card_id: cardId, card_status: cardStatus };
-    var url = "http://127.0.0.1:5000/boards/update_status";
+    var url = "/boards/update_status";
     $.post(url, JSON.stringify(newCardStatus), function (data) {
         console.log(data);
     });

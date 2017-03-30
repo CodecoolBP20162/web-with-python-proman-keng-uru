@@ -32,14 +32,14 @@ def show_board(board_id):
     return render_template("board.html")
 
 
-@app.route("/board/show_cards", methods=['POST'])
+@app.route("/board/show_cards", methods=['GET', 'POST'])
 def show_cards_for_board():
     result = request.get_json(force=True)
     board = Board.select().where(Board.board_title == result["board_name"]).get()
     cards_of_board = Cards.select().where(Cards.board_id == board.id)
     cards = []
     for card in cards_of_board:
-        card = {"card_title": card.card_title, "card_desc": card.card_desc,
+        card = {"background": card.background_color, "card_title": card.card_title, "card_desc": card.card_desc,
                 "card_id": card.card_id, "status": card.status.name}
         cards.append(card)
     print(cards)
@@ -55,7 +55,7 @@ def board_to_db(id):
     return json.dumps(json_obj)
 
 
-@app.route('/boards/save_cards', methods=['POST'])
+@app.route('/boards/save_cards', methods=['GET', 'POST'])
 def card_to_db():
     json_obj = request.get_json(force=True)
     new_card_status_id = Status.select().where(Status.name == json_obj["card_status"]).get()
@@ -65,7 +65,7 @@ def card_to_db():
                      card_desc=json_obj["card_description"],
                      status=new_card_status_id,
                      board=new_card_board_id,
-                     background=json_obj["background_color"])
+                     background_color=json_obj["background_color"])
     new_card.save()
     return json.dumps(json_obj)
 
