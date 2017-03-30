@@ -27,10 +27,10 @@ function drop(ev) {
 }
 
 $(document).ready(function () {
-    var boardName = decodeURI(obtainBoardnameFromHref());
     // renderSavedCardsFromLocalDb();
+    var boardName = decodeURI(obtainBoardnameFromHref());
     renderSavedCardsFromRemoteDb(boardName);
-    $(".nav").append("<li><a>" + boardName + "</a></li>>");
+    $("#navbar").append("<li><a>" + boardName + "</a></li>>");
     $("#add-card").click(addNewcard);
 });
 
@@ -39,6 +39,7 @@ function addNewcard() {
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
     var boardName = decodeURI(obtainBoardnameFromHref());
+    var color =
     console.log(boardName);
 
     cards = JSON.parse(localStorage.getItem("cards")) || [];
@@ -48,7 +49,7 @@ function addNewcard() {
         $("#new-card-description").val('');
         addCardToLocalDb(highestCardId, cardName, cardDescription, Status.NEW);
         addCardToRemoteDb(highestCardId, cardName, cardDescription, Status.NEW, boardName);
-        render_new_card(cardName, cardDescription, highestCardId, Status.NEW);
+        render_new_card(cardName, cardDescription, highestCardId,  Status.NEW);
     }
 }
 
@@ -58,10 +59,11 @@ function editCard(){
     var description = $(this).closest(".card-text").find("article").find("header").html();
     $('#new-card-title').val(card_name);
     $('#new-card-description').val(description);
-    $(this).closest(".card-text").remove();
     edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
     $("#add-card").click(save_card_handler);
+    $(this).closest(".card-text").remove();
     }
+
 
 function renderSavedCardsFromLocalDb() {
     var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
@@ -105,7 +107,6 @@ function addCardToRemoteDb (id, title, description, status, boardName) {
             console.log(data["board_name"]);
         });
 }
-
 
 function removeCardFromLocalDb(card_id) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
@@ -183,7 +184,6 @@ function getNextCardId() {
     return cardId++;
 }
 
-
 function render_new_card(cardName, cardDescription, cardId, cardStatus) {
     $("#" + cardStatus).append('<div class="card-text" id="card' + cardId +
         '" draggable="true" ondragstart="drag(event)")><p>' + '<section class="card"> ' +
@@ -202,13 +202,12 @@ function change_card(cardId, cardTitle, cardDescription) {
         }
     }
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
-
 }
 
 function save_card_handler() {
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
-    change_card(edited_card_id, cardName, cardDescription)
+    change_card(edited_card_id, cardName, cardDescription);
 
     $("#add-card").click(save_new_card_handler);
 }
@@ -226,10 +225,4 @@ function save_new_card_handler() {
         render_new_card(cardName, cardDescription, cardId, Status.NEW);
         ++cardId;
     }
-};
-
-
-function make_card_editable(ev) {
-    editable_card_id = ev.target.id;
-    card_id = parseInt(editable_card_id.substring(4));
-};
+}

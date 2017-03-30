@@ -40,7 +40,6 @@ def show_cards_for_board():
     for card in cards_of_board:
         card = {"card_title" : card.card_title, "card_desc" : card.card_desc, "card_id" : card.card_id, "status" : card.status.name}
         cards.append(card)
-    print(cards)
     return json.dumps({"cards" : cards})
 
 @app.route('/boards/<id>', methods=['POST'])
