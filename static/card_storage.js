@@ -57,7 +57,7 @@ function addNewcard() {
     var cardDescription = $("#new-card-description").val();
     var boardName = decodeURI(obtainBoardnameFromHref());
     var color =
-    console.log(boardName);
+        console.log(boardName);
     console.log(backgroundColor);
 
     cards = JSON.parse(localStorage.getItem("cards")) || [];
@@ -71,7 +71,7 @@ function addNewcard() {
     }
 }
 
-function editCard(){
+function editCard() {
     console.log("It works");
     var card_name = $(this).closest(".card-text").find("header.cardname").html();
     var description = $(this).closest(".card-text").find("article").find("header").html();
@@ -80,7 +80,7 @@ function editCard(){
     edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
     $("#add-card").click(save_card_handler);
     $(this).closest(".card-text").remove();
-    }
+}
 
 
 function renderSavedCardsFromLocalDb() {
@@ -103,7 +103,7 @@ function renderSavedCardsFromRemoteDb(boardName) {
             render_new_card(backgroundColor = cards[i].background, cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
         }
         $(".editcard button").click(editCard);
-        });
+    });
 }
 
 function addCardToLocalDb(cardId, cardName, cardDescription, cardStatus) {

@@ -1,4 +1,9 @@
 @font-face {
+  font-family: Marker;
+  src: url(marker.ttf);
+} 
+
+@font-face {
   font-family: BoardTitle;
   src: url(EraserDust.ttf);
 }
@@ -46,7 +51,7 @@ img.postit_pack {
 }
 
 div.modal_card {
-  background-color: antiquewhite;
+  background-color: white;
   background-size: 100%;
   margin: 0 auto;
   padding: 10px;
@@ -56,10 +61,11 @@ div.modal_card {
 }
 
 .card>header {
+  font-family: Marker;
   text-align: center;
   font-weight: bold;
-  font-size: 1em;
   line-height: 1.2em;
+  font-size: 1.5em;
 }
 
 
@@ -67,6 +73,7 @@ div.modal_card {
   padding: 6px 8px;
   border: none;
   background: transparent;
+  font-family: Marker;
 }
 
 .card_input{
@@ -82,6 +89,7 @@ div.modal_card {
 
 ::-webkit-input-placeholder {
   color:black;
+  font-family: Marker
 }
 
 
@@ -201,4 +209,31 @@ a {
   color: white;
   font-size: 60px;
   vertical-align: middle;
+}
+
+a:hover {
+  color:white;
+  text-decoration: none;
+  cursor: default
+}
+
+label {
+  font-family: Marker;
+  font-size: 1.5em;
+  padding-top: 5px;
+}
+
+.modal-title {
+  font-family: Marker
+}
+
+#add-card {
+  font-family: Marker;
+  font-size: 1.5em
+}
+
+h1.inline {
+  font-family: BoardTitle;
+  font-size: 2em;
+  margin-left: 30em;
 }

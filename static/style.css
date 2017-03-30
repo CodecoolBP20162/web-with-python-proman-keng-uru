@@ -8,9 +8,9 @@
    .arrange {
     width: 20%;
     overflow: auto;
-    min-height: 700px;
+    min-height: 800px;
     float: left;
-    padding: 10px;
+    padding: 6px;
     /*border: 1px solid #aaaaaa;
     /*margin-top: 100px;*/
 
@@ -30,7 +30,7 @@
         float: left;
         padding-bottom:3px;
         text-align: center;
-        background: url("bookmark.png");
+        background: url("bookmark-postit.png");
         background-size: 90% 100%;
         background-repeat: no-repeat;
 
