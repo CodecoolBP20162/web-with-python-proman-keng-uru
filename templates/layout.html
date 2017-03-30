@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>KENG-uru</title>
     <meta charset="UTF-8">
@@ -12,15 +13,16 @@
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     {% block head %}{%endblock%}
 </head>
+
 <body>
-<div id="navbar">
-<img class="inline" id="delete_card" src="{{ url_for('static', filename='kuka.png') }}" width="90px" height="80px"
-     ondrop="drop(event)" ondragover="allowDrop(event)" style="display: table-row-group">
-    <a href="{{ url_for('show_start_html') }}" id="backtohome">
-        <img class="inline" id="back" src="{{ url_for('static', filename='backtohome.png') }}" width="90px" height="80px" >
-    </a>
-</div>
-<!--
+    <div id="navbar">
+        <img class="inline" id="delete_card" src="{{ url_for('static', filename='kuka.png') }}" width="90px" height="80px" ondrop="drop(event)"
+            ondragover="allowDrop(event)" style="display: table-row-group">
+        <a href="{{ url_for('show_start_html') }}" id="backtohome">
+            <img class="inline" id="back" src="{{ url_for('static', filename='backtohome.png') }}" width="90px" height="80px">
+        </a>
+    </div>
+    <!--
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -45,7 +47,7 @@
             </div>
         </div>
     </nav>-->
-{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 </body>
-</html>
 
+</html>
