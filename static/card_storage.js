@@ -30,7 +30,7 @@ $(document).ready(function () {
     // renderSavedCardsFromLocalDb();
     var boardName = decodeURI(obtainBoardnameFromHref());
     renderSavedCardsFromRemoteDb(boardName);
-    $("#navbar").append("<li><a>" + boardName + "</a></li>>");
+    $("#navbar").append("<br><br><a>" + boardName + "</a>");
     $("#add-card").click(addNewcard);
 });
 
@@ -225,6 +225,7 @@ function save_new_card_handler() {
         render_new_card(cardName, cardDescription, cardId, Status.NEW);
         ++cardId;
     }
+}
 
 //random color selector//
 $(document).on('click', "#new_card_button", function () {

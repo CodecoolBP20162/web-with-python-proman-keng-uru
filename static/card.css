@@ -206,3 +206,10 @@ h3.inline {
   font-family: BoardTitle;
   transform: rotate(180deg)
 }
+
+a {
+  font-family: BoardTitle;
+  color: white;
+  font-size: 60px;
+  vertical-align: middle;
+}
