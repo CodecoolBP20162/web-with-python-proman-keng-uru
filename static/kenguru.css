@@ -15,7 +15,8 @@ body {
   font-family: BoardTitle;
   background-image: url("Chalkboard.jpg");
   color: black;
-  font-size: 17px
+  font-size: 17px;
+  background-attachment: fixed;
 }
 
 h1,
@@ -141,7 +142,7 @@ button.remove {
   background:url("delete.png")no-repeat 0 0;
   display: inline-block;
   content: "";
-  background-size: 100%;
+  background-size: 80%;
   width: 2em;
   height: 2em;
   
