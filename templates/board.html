@@ -46,8 +46,10 @@
         <!-- Modal content-->
         <div id="modal_card" class="modal_card">
             <div class="modal-header">
-                <img  src="{{ url_for('static', filename='pin2.png') }}" id="pin" width="20%" height="10%" class="close" data-dismiss="modal"></img>
-
+                <img src="{{ url_for('static', filename='pin2.png') }}" id="pin" width="20%" height="10%" class="close" data-dismiss="modal"></img>
+                <center>
+                    <h4 class="modal-title">Write a new Post-it</h4>
+                </center>
             </div>
             <center>
                 <div><br>
@@ -55,7 +57,6 @@
                     <textarea class="card_text" placeholder="What to do" id="new-card-description"></textarea>
                 </div>
             </center>
-
             <div class="modal-footer">
                 <button id="add-card">Save</button>
             </div>

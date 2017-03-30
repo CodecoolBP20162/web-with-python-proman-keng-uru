@@ -34,3 +34,4 @@ class Cards(BaseModel):
     card_id = IntegerField()
     board = ForeignKeyField(Board, null=True, default=None)
     status = ForeignKeyField(Status, null=True, default=None)
+    background_color = CharField()

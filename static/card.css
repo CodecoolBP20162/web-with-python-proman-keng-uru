@@ -37,20 +37,18 @@ img.postit_pack {
 
 
 .card {
-  background-color: white;
   background-size: 100%;
   margin: 0 auto;
-  /*border-radius: 15px;*/
   padding: 10px;
   width: 10em;
   border:none;
   transition: 0.3s;
 }
 
-.modal_card {
+div.modal_card {
+  background-color: antiquewhite;
   background-size: 100%;
   margin: 0 auto;
-  /*border-radius: 15px;*/
   padding: 10px;
   width: 20em;
   border:none;
@@ -69,11 +67,6 @@ img.postit_pack {
   padding: 6px 8px;
   border: none;
   background: transparent;
-  background: white;
-}
-
-.card-text {
-  background: white;
 }
 
 .card_input{
@@ -116,7 +109,7 @@ img.postit_pack {
 }
 
 .card:hover {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 6px 8px 5px rgba(0,0,0,0.2);
 }
 
 .hidden {
@@ -159,10 +152,6 @@ input {
   max-width:208px;
   height: 128px;
   background-color: transparent;
-}
-
-.card_text {
-  background: white;
 }
 
 .imagewrap {
