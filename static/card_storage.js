@@ -26,24 +26,145 @@ function drop(ev) {
     }
 }
 
+
+var SaveToDatabase = function () {
+    var currentState = new LocalDatabase(this);
+
+    this.change = function (state) {
+        currentState = state;
+        currentState.renderSavedCards();
+    };
+
+    this.start = function () {
+        currentState.renderSavedCards();
+    };
+}
+
+
+var RemoteDatabase = function () {
+    this.renderSavedCards = function (boardName) {
+        var boardName = { board_name : boardName };
+        var url = "http://127.0.0.1:5000/board/show_cards";
+        $.post(url, JSON.stringify(boardName), function (data) {
+            var cards_data = JSON.parse(data);
+            var cards = cards_data['cards'];
+            for (var i=0; i<cards.length; i++) {
+                render_new_card(cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
+            }
+            $(".editcard button").click(editCard);
+            });
+    };
+    this.addCardToDb = function(id, title, description, status, boardName){
+        newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
+        var url = "http://127.0.0.1:5000/boards/save_cards";
+	    $.post(url, JSON.stringify(newCard), function (data) {
+        });
+    };
+    this.removeCard = function(cardId){
+        cardToDelete = { card_id: card_id };
+        var url = "http://127.0.0.1:5000/boards/delete_cards";
+        $.post(url, JSON.stringify(cardToDelete), function (data) {
+        });
+    };
+    this.changeCardStatus = function(cardId, cardStatus){
+        var newCardStatus = { card_id : cardId, card_status: cardStatus};
+        var url = "/boards/update_status";
+	    $.post(url, JSON.stringify(newCardStatus), function (data) {
+        });
+    };
+    this.editCard = function(cardId, cardTitle, cardDescription){
+        var cardToUpdate = { card_id : cardId, card_title: cardTitle, card_desc: cardDescription };
+        var url = "/boards/edit_card";
+        $.post(url, JSON.stringify(cardToUpdate), function (data) {
+        });
+
+    }
+
+};
+
+var LocalDatabase = function () {
+    this.renderSavedCards = function () {
+        var cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+        for (var i in cards) {
+            render_new_card(cards[i].title, cards[i].description, cards[i].id, cards[i].status);
+        }
+    };
+    this.addCardToDb = function(cardId, cardName, cardDescription, cardStatus){
+        cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+        var card = {
+        id: cardId,
+        title: cardName,
+        description: cardDescription,
+        status: cardStatus
+        };
+        cards.push(card);
+        localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+        };
+    this.removeCard = function(cardId){
+        cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+        for (i = 0; i < cards.length; i++) {
+            if (cards[i].id === card_id) {
+                cards.splice(i, 1);
+                break;
+            }
+        }
+    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+
+    };
+    this.changeCardStatus = function(cardId, cardStatus){
+        cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+        for (i = 0; i < cards.length; i++) {
+        if (cards[i].id === cardId) {
+            cards[i].status = cardStatus;
+            break;
+        }
+    }
+    localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+
+
+    };
+    this.editCard = function(cardId, cardTitle, cardDescription) {
+        cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
+        for (i = 0; i < cards.length; i++) {
+            if (cards[i].id === cardId) {
+                cards[i].title = cardTitle;
+                cards[i].description = cardDescription;
+                break;
+            }
+        }
+        localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
+    };
+
+};
+
+
+
+
+
+
+
 $(document).ready(function () {
     // renderSavedCardsFromLocalDb();
     var boardName = decodeURI(obtainBoardnameFromHref());
     renderSavedCardsFromRemoteDb(boardName);
     $("#navbar").append("<li><a>" + boardName + "</a></li>>");
     $("#add-card").click(addNewcard);
+    $('#new_card_button').click(function(){
+        $("#add-card").show();
+        $("#edit-card-button").hide();
+    });
 });
+
+
+
 
 function addNewcard() {
     var highestCardId = getNextCardId() + 1;
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
     var boardName = decodeURI(obtainBoardnameFromHref());
-    var color =
-    console.log(boardName);
 
     cards = JSON.parse(localStorage.getItem("cards")) || [];
-    console.log(cards)
     if (cardName && !cards.includes(cardName)) {
         $("#new-card-title").val('');
         $("#new-card-description").val('');
@@ -54,14 +175,17 @@ function addNewcard() {
 }
 
 function editCard(){
-    console.log("It works");
+    $("#add-card").hide();
+    $("#edit-card-button").show();
     var card_name = $(this).closest(".card-text").find("header.cardname").html();
     var description = $(this).closest(".card-text").find("article").find("header").html();
     $('#new-card-title').val(card_name);
     $('#new-card-description').val(description);
     edited_card_id = $(this).closest(".card-text").attr('id').substring(4);
-    $("#add-card").click(save_card_handler);
+    $("#edit-card-button").click(saveCardHandler(edited_card_id));
     $(this).closest(".card-text").remove();
+    $("#edit-card-button").hide();
+    $("#add-card").show();
     }
 
 
@@ -76,12 +200,9 @@ function renderSavedCardsFromRemoteDb(boardName) {
     var boardName = { board_name : boardName };
     var url = "http://127.0.0.1:5000/board/show_cards";
     $.post(url, JSON.stringify(boardName), function (data) {
-        console.log(data);
         var cards_data = JSON.parse(data);
         var cards = cards_data['cards'];
-        console.log(cards);
         for (var i=0; i<cards.length; i++) {
-            console.log(cards[i].card_title);
             render_new_card(cardName = cards[i].card_title, cardDescription = cards[i].card_desc, cardId = cards[i].card_id, cardStatus = cards[i].status);
         }
         $(".editcard button").click(editCard);
@@ -104,7 +225,6 @@ function addCardToRemoteDb (id, title, description, status, boardName) {
         newCard = { card_id : id, card_title : title, card_description : description, card_status : status, board_name : boardName};
         var url = "http://127.0.0.1:5000/boards/save_cards";
 	    $.post(url, JSON.stringify(newCard), function (data) {
-            console.log(data["board_name"]);
         });
 }
 
@@ -123,7 +243,6 @@ function removeCardFromRemoteDb(card_id) {
     cardToDelete = { card_id: card_id };
     var url = "http://127.0.0.1:5000/boards/delete_cards";
     $.post(url, JSON.stringify(cardToDelete), function (data) {
-        console.log(data);
     });
 }
 
@@ -137,14 +256,6 @@ function changeCardStatusInLocalDb(cardId, cardStatus) {
     }
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 
-}
-
-function changeCardStatusInRemoteDb(cardId, cardStatus) {
-        newCardStatus = { card_id : cardId, card_status: cardStatus};
-        var url = "http://127.0.0.1:5000/boards/update_status";
-	    $.post(url, JSON.stringify(newCardStatus), function (data) {
-            console.log(data);
-        });
 }
 
 var Status = {
@@ -192,7 +303,7 @@ function render_new_card(cardName, cardDescription, cardId, cardStatus) {
         + ' </section>' + '</p></div>');
 }
 
-function change_card(cardId, cardTitle, cardDescription) {
+function changeCardInLocalDb(cardId, cardTitle, cardDescription) {
     cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || [];
     for (i = 0; i < cards.length; i++) {
         if (cards[i].id === cardId) {
@@ -204,25 +315,25 @@ function change_card(cardId, cardTitle, cardDescription) {
     localStorage.setItem(nameOfListForCardsInBoard(), JSON.stringify(cards));
 }
 
-function save_card_handler() {
-    var cardName = $("#new-card-title").val();
-    var cardDescription = $("#new-card-description").val();
-    change_card(edited_card_id, cardName, cardDescription);
 
-    $("#add-card").click(save_new_card_handler);
+function changeCardInRemoteDb(cardId, cardTitle, cardDescription) {
+    var cardToUpdate = { card_id : cardId, card_title: cardTitle, card_desc: cardDescription };
+    var url = "/boards/edit_card";
+     $.post(url, JSON.stringify(cardToUpdate), function (data) {
+        });
 }
 
-function save_new_card_handler() {
+function changeCardStatusInRemoteDb(cardId, cardStatus) {
+        var newCardStatus = { card_id : cardId, card_status: cardStatus};
+        var url = "/boards/update_status";
+	    $.post(url, JSON.stringify(newCardStatus), function (data) {
+        });
+}
+
+
+function saveCardHandler(edited_card_id) {
     var cardName = $("#new-card-title").val();
     var cardDescription = $("#new-card-description").val();
-
-    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || cards;
-    if (cardName && !cards.includes(cardName)) {
-        $("#new-card-title").val('');
-        $("#new-card-description").val('');
-        addCardToLocalDb(cardId, cardName, cardDescription, Status.NEW);
-        addCardToRemoteDb(cardId, cardName, cardDescription, Status.NEW);
-        render_new_card(cardName, cardDescription, cardId, Status.NEW);
-        ++cardId;
-    }
+    changeCardInLocalDb(edited_card_id, cardName, cardDescription);
+    changeCardInRemoteDb(edited_card_id, cardName, cardDescription);
 }

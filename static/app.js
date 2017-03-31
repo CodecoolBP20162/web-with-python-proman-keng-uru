@@ -47,7 +47,6 @@ saveNewBoardToDB = function (text, boardIdx) {
     newBoard = { board_title: text, board_id: boardIdx };
     let url = "http://127.0.0.1:5000/boards/" + boardIdx;
     $.post(url, JSON.stringify(newBoard), function (data) {
-        //console.log(data);
     });
 };
 
@@ -75,10 +74,7 @@ deleteBoardFromDB = function (boardTitle) {
     $.ajax({
         url: 'http://127.0.0.1:5000/boards/' + boardTitle,
         type: 'DELETE',
-        //data: JSON.stringify({ board_title : boardTitle }),
-        //contentType:'application/json',
-        //dataType: 'text',
-        success: function(data) { console.log(data); }
+        success: function(data) {}
     });
 };
 
@@ -100,12 +96,6 @@ displayBoardsFromServerDb = function () {
 };
 
 $(document).ready(function () {
-    /*
-    ul.appendChild(create_card_for_board("Go to mcdonalds ask for directions to burgerking"));
-        ul.appendChild(create_card_for_board("Walk into Sea World with a fishing pole"));
-        ul.appendChild(create_card_for_board("Sleeping"));
-    */
-
     //displayBoardsFromLocalStg();
     displayBoardsFromServerDb();
 
@@ -122,10 +112,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'http://127.0.0.1:5000/boards/' + boardTitle,
             type: 'DELETE',
-            //data: JSON.stringify({ board_title : boardTitle }),
-            //contentType:'application/json',
-            //dataType: 'text',
-            success: function (data) { console.log(data); }
+            success: function (data) {}
         });
     };
 });

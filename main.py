@@ -72,6 +72,12 @@ def update_card_status():
     return json.dumps(json_obj)
 
 
+@app.route('/boards/edit_card', methods=['POST'])
+def update_card_data():
+    json_obj = request.get_json(force=True)
+    Cards.update(card_title=json_obj["card_title"], card_desc=json_obj["card_desc"]).where(Cards.card_id == int(json_obj["card_id"])).execute()
+    return json.dumps(json_obj)
+
 @app.route('/boards/delete_cards', methods=['POST'])
 def delete_card():
     json_obj = request.get_json(force=True)
@@ -80,15 +86,11 @@ def delete_card():
 
 @app.route('/boards/<title>', methods=['DELETE'])
 def del_board(title):
-    # json_obj = request.get_json(force=True)
     board_obj = Board.select().where(Board.board_title == title).get()
     Cards.delete().where(Cards.board_id == board_obj.id).execute()
     Board.delete().where(Board.board_title == title).execute()
     return json.dumps({ "status" : "OK" })
 
-def main():
-    app.run()
-    init_db()
-
 if __name__ == '__main__':
-    main()
+    init_db()
+    app.run()
