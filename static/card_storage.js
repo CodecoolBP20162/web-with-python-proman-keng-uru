@@ -337,3 +337,21 @@ function saveCardHandler(edited_card_id) {
     changeCardInLocalDb(edited_card_id, cardName, cardDescription);
     changeCardInRemoteDb(edited_card_id, cardName, cardDescription);
 }
+
+
+    cards = JSON.parse(localStorage.getItem(nameOfListForCardsInBoard())) || cards;
+    if (cardName && !cards.includes(cardName)) {
+        $("#new-card-title").val('');
+        $("#new-card-description").val('');
+        addCardToLocalDb(cardId, cardName, cardDescription, Status.NEW);
+        addCardToRemoteDb(cardId, cardName, cardDescription, Status.NEW);
+        render_new_card(cardName, cardDescription, cardId, Status.NEW);
+        ++cardId;
+    }
+
+//random color selector//
+$(document).on('click', "#new_card_button", function () {
+    var colors = ['rgb(240,91,61)', 'rgb(233,185,61)', 'rgb(225,226,90)', 'rgb(119,172,223)', 'rgb(190,74,157)', 'rgb(250,188,65)'];
+    var random_color = colors[Math.floor(Math.random() * colors.length)];
+    document.getElementById('modal_card').style.backgroundColor = random_color;
+})
